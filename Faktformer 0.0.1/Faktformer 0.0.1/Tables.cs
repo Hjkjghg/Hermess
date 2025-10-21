@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,29 +107,29 @@ namespace Faktformer_0._0._1
         }
 
         //zastępuje wybrany rząd pobierając z List<object>
-        public void ReplaceRow(List<object> row, int rowNumber)
+        public void ReplaceRow(List<object> row, int index)
         {
             Rows rows = new Rows(row);
-            if (table[rowNumber] != null)
+            if (table[index] != null)
             {
-                table[rowNumber] = rows;
+                table[index] = rows;
             }
         }
         //zastępuje wybrany rząd pobierając z object[]
-        public void ReplaceRow(object[] row, int rowNumber)
+        public void ReplaceRow(object[] row, int index)
         {
             Rows rows = new Rows(row);
-            if (table[rowNumber] != null)
+            if (table[index] != null)
             {
-                table[rowNumber] = rows;
+                table[index] = rows;
             }
         }
         //zastępuje wybrany rząd pobierając z Rows
-        public void ReplaceRow(Rows row, int rowNumber)
+        public void ReplaceRow(Rows row, int index)
         {
-            if (table[rowNumber] != null)
+            if (table[index] != null)
             {
-                table[rowNumber] = row;
+                table[index] = row;
             }
         }
 
@@ -147,9 +148,9 @@ namespace Faktformer_0._0._1
         {
             object[,] array = new object[tableHeight, tableWidth];
             int i = 0;
-            int f = 0;
             foreach (Rows list in table)
             {
+                int f = 0;
                 foreach (object item in list.row)
                 {
                     array[i, f] = item;
@@ -159,7 +160,7 @@ namespace Faktformer_0._0._1
             }
             return array;
         }
-        //zwraca całą tabę jako  List<list<dtring>>
+        //zwraca całą tabę jako  List<list<string>>
         public List<List<object>> ReturnList()
         {
             List<List<object>> list = new List<List<object>>();
@@ -169,61 +170,126 @@ namespace Faktformer_0._0._1
             }
             return list;
         }
-        //zwraca całą tabele jako Tables
+        //zwraca całą tabele jako List<Rows>
         public List<Rows> ReturnRows()
         {
             return table;
         }
 
         //dodaje element object do wybranego rzęu
-        public void AddElementToRow(object element, int row)
+        public void AddElementToRow(object element, int index)
         {
-            if (table[row] != null)
+            if (table[index] != null)
             {
-                table[row].row.Add(element);
-                tableWidth = (table[row].row.Count > tableWidth) ? table[row].row.Count : tableWidth;
-            }
-        }
-
-        //podmienia element na wybranej pozycji rzędu i kolumny
-        public void ReplaceElementAt(object element, int row, int column)
-        {
-            if (table[row].row[column] != null)
-            {
-                table[row].row[column] = element;
-            }
-        }
-
-        //stawia element na wybranym miejscu w tabeli, może wymusić
-        public void PlaceElementAt(object element, int row, int column, bool force = false)
-        {
-            if (force)
-            {
-                while (table[row] == null)
-                {
-                    table.Add(new Rows());
-                }
-                while (table[row].row[column] == null)
-                {
-                    table[row].Add("");
-                }
-                table[row].row[column] = element;
+                table[index].row.Add(element);
+                tableWidth = (table[index].row.Count > tableWidth) ? table[index].row.Count : tableWidth;
             }
             else
             {
-                if (table[row].row[column] != null)
+                throw new IndexOutOfRangeException(index.ToString());
+            }
+
+        }
+
+        //podmienia element na wybranej pozycji rzędu i kolumny
+        public void ReplaceElementAt(object element, int rowIndex, int columnIndex)
+        {
+            if (table[rowIndex].row[columnIndex] != null)
+            {
+                table[rowIndex].row[columnIndex] = element;
+            }
+            else if (table[rowIndex] != null)
+            {
+                throw new IndexOutOfRangeException(columnIndex.ToString());
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(rowIndex.ToString() + ", " + columnIndex.ToString());
+            }
+
+        }
+
+        //stawia element na wybranym miejscu w tabeli, może wymusić
+        public void PlaceElementAt(object element, int rowIndex, int columnIndex, bool force = false)
+        {
+            if (force)
+            {
+                while (table[rowIndex] == null)
                 {
-                    table[row].row[column] = element;
+                    table.Add(new Rows());
+                }
+                while (table[rowIndex].row[columnIndex] == null)
+                {
+                    table[rowIndex].Add("");
+                }
+                table[rowIndex].row[columnIndex] = element;
+            }
+            else
+            {
+                if (table[rowIndex].row[columnIndex] != null)
+                {
+                    table[rowIndex].row[columnIndex] = element;
+                }
+                else if (table[rowIndex] != null)
+                {
+                    throw new IndexOutOfRangeException(columnIndex.ToString());
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException(rowIndex.ToString() + ", " + columnIndex.ToString());
                 }
             }
         }
 
         //usuwa element na wybranym iejscu w tabeli
-        public void RemoveElementAt(int row, int column)
+        public void RemoveElementAt(int rowIndex, int columnIndex)
         {
-            if (table[row].row[column] != null)
+            if (table[rowIndex].row[columnIndex] != null)
             {
-                table[row].row.RemoveAt(column);
+                table[rowIndex].row.RemoveAt(columnIndex);
+            }
+            else if (table[rowIndex] != null)
+            {
+                throw new IndexOutOfRangeException(columnIndex.ToString());
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(rowIndex.ToString() + ", " + columnIndex.ToString());
+            }
+
+        }
+
+        //popycha element na wyznaczone miejsce
+        public void PushElementAt(object element, int rowIndex, int columnIndex)
+        {
+            if (table[rowIndex] != null)
+            {
+                if (table[rowIndex].row[columnIndex] != null)
+                {
+                    Rows replacingRow = new Rows();
+                    for(int i = 0; i < columnIndex; i++)
+                    {
+                        replacingRow.Add(table[rowIndex].row[i]);
+                    }
+                    replacingRow.Add(element);
+                    for(int i = columnIndex; i < table[rowIndex].row.Count; i++)
+                    {
+                        replacingRow.Add(table[rowIndex].row[i]);
+                    }
+                    table[rowIndex] = replacingRow;
+                }
+                else if (table[rowIndex].row[columnIndex-1] != null)
+                {
+                    table[rowIndex].row.Add(element);
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException(columnIndex.ToString());
+                }
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(rowIndex.ToString() + ", " + columnIndex.ToString());
             }
         }
 
@@ -262,13 +328,20 @@ namespace Faktformer_0._0._1
         }
 
         //zwraca element na wybranej pozycji, jeśli nie istnieje to null
-        public object? ReturnItemAt(int row, int column)
+        public object ReturnItemAt(int rowIndex, int columnIndex)
         {
-            if (table[row].row[column] != null)
+            if (table[rowIndex].row[columnIndex] != null)
             {
-                return table[row].row[column];
+                return table[rowIndex].row[columnIndex];
             }
-            return null;
+            else if (table[rowIndex] != null)
+            {
+                throw new IndexOutOfRangeException(columnIndex.ToString());
+            }
+            else
+            {
+                throw new IndexOutOfRangeException(rowIndex.ToString() + ", " + columnIndex.ToString());
+            }
         }
         
         //czyści tabele
@@ -277,7 +350,6 @@ namespace Faktformer_0._0._1
             table.Clear();
             tableHeight = 0;
             tableWidth = 0;
-            //this[4]
         }
         
         public Rows this[int i]
