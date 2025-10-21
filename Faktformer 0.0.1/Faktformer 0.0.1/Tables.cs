@@ -26,52 +26,51 @@ namespace Faktformer_0._0._1
         }
 
         //zwraca wybrany rząd tabeli jako List<object>
-        public List<object>? ReturnRow(int row)
+        public List<object>? ReturnRow(int index)
         {
-            if (table[row] != null)
+            if (table.Count >= index)
             {
-                return table[row].row;
+                return table[index].row;
             }
-            return null;
+            throw new IndexOutOfRangeException(index.ToString());
         }
 
         //zwraca wybrany rząd tabeli jako object[]
-        public object[] ReturnRowAsArray(int row)
+        public object[] ReturnRowAsArray(int index)
         {
-            object[] rowArray = new object[table[row].row.Count];
-            for (int i = 0; i < table[row].row.Count; i++)
+            if (table.Count >= index)
             {
-                rowArray[i] = table[row].row[i];
+                return table[index].row.ToArray();
             }
-            return rowArray;
+            throw new IndexOutOfRangeException(index.ToString());
         }
 
         //zwraca wybraną kolumnę jako List<object>
-        public List<object>? ReturnColumn(int column)
+        public List<object> ReturnColumn(int index)
         {
             List<object> columnOut = new List<object>();
             foreach(Rows row in table)
             {
-                if (row.row[column] == null)
+                if (row.row[index] == null)
                 {
-                    return null;
+                    throw new IndexOutOfRangeException(index.ToString());
                 }
-                columnOut.Add(row.row[column]);
+                columnOut.Add(row.row[index]);
             }
             return columnOut;
         }
 
         //zwraca wybraną kolumnę jako object[]
-        public object[]? ReturnColumnAsArray(int column)
+        public object[] ReturnColumnAsArray(int index)
         {
             object[] columnOut = new object[table.Count];
             for(int i = 0; i < table.Count; i++)
             {
-                if (table[i].row[column] == null)
+                if (table[i].row[index] == null)
                 {
-                    return null;
+                    throw new IndexOutOfRangeException(index.ToString());
                 }
-                columnOut[i] = table[i].row[column];
+                columnOut[i] = table[i].row[index];
             }
             return columnOut;
         }
