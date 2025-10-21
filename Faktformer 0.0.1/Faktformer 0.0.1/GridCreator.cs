@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Windows.Themes;
+using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -20,26 +22,16 @@ namespace Faktformer_0._0._1
     internal class GridCreator
     {
         private Grid myGrid;
-        private Window parent;
+        public enum eventType
+        {
+            Click,
+            Checked,
 
-        public GridCreator(ref Window window) 
+        }
+
+        public GridCreator() 
         {
             myGrid = new Grid();
-            parent = window;
-        }
-
-        public void ChangeParentWindow(ref Window window)
-        {
-            Window previosParent = parent;
-            parent = window;
-        }
-        private void ReparentAllElements()
-        {
-            foreach (FrameworkElement element in myGrid.Children)
-            {
-                myGrid.UnregisterName(element.Name);
-                myGrid.RegisterName(element.Name, element);
-            }
         }
 
         public void SetGridHeight(double height)
@@ -210,9 +202,51 @@ namespace Faktformer_0._0._1
             checkBox.VerticalAlignment = verticalAlignment;
             myGrid.Children.Add(checkBox);
         }
-        public void AddEventListenerToElementByName(RoutedEventHandler routedEventHandler, string name)
+        public void AddEventListenerToElementByName(RoutedEventHandler routedEventHandler, string name, eventType typeOfEvent)
         {
+            Object element = myGrid.FindName(name);
+            switch (element)
+            {
+                case (CheckBox):
+                    CheckBox castedCheckBox = (CheckBox)element;
+                    switch (typeOfEvent)
+                    {
+                        case (eventType.Click):
+                            castedCheckBox.Click += routedEventHandler;
+                            break;
+                        case (eventType.Checked):
+                            castedCheckBox.Checked += routedEventHandler;
+                            break;
+                    }                   
+                    break;
+                case (RadioButton):
+                    RadioButton castedRadioButton = (RadioButton)element;
+                    switch (typeOfEvent)
+                    {
+                        case (eventType.Click):
+                            castedRadioButton.Click += routedEventHandler;
+                            break;
+                        case (eventType.Checked):
+                            castedRadioButton.Checked += routedEventHandler;
+                            break;
+                    }                   
+                    break;
+                case (Button):
+                    Button castedButton = (Button)element;
+                    switch (typeOfEvent)
+                    {
+                        case (eventType.Click):
+                            castedButton.Click += routedEventHandler;
+                            break;
+                    }
+                    break;
+            }
             
+        }
+
+        private void Element_KeyDown(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
