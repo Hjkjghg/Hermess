@@ -1,0 +1,247 @@
+﻿<Window x:Class="Faktformer_0._0._1.ZwykleZadanie1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Faktformer_0._0._1"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit" 
+        mc:Ignorable="d"
+        Title="ZwykleZadanie1" MaxHeight="540" MinHeight="540" Height="540" Width="750" MaxWidth="750" MinWidth="750" Background="#FF2A284F" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="145"/>
+            <RowDefinition Height="310"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0, 10, 10, 0" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 15, 20, 0">
+                <Label Content="Nazwa" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <TextBox Width="240" Name="TextBoxNazwa" Height="20" Margin="8, 0 ,8, 0"/>
+                <Label Content="Magazyn" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxMagazyn" Width="110" SelectedIndex="0" Margin="8, 0 ,8, 0">
+                    <!--To będzie wymienione dynamicznym kodem-->
+                    <ComboBoxItem Content="Wszystkie"/>
+                    <ComboBoxItem Content="Główny"/>
+                </ComboBox>
+                <Label Content="Rodzaj" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxRodzajFaktura" Width="110" SelectedIndex="0" Margin="8, 0 ,8, 0">
+                    <!--Rodzaje faktury-->
+                    <ComboBoxItem Content=""/>
+
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 15, 20, 0">
+                <CheckBox Name="CheckBoxZadnieAktywne" VerticalAlignment="Center" Content="Zadanie aktywne" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <Label Content="Waluta" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxWaluta" Width="50" SelectedIndex="0" Margin="8, 0 ,11, 0">
+                    <!--Rodzaje waluty-->
+                    <ComboBoxItem Content=""/>
+                </ComboBox>
+                <Label Content="Płatność" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxPlatnosc" Width="110" SelectedIndex="0" Margin="8, 0 ,8, 0">
+                    <!--Rodzaje Płatnośći-->
+                    <ComboBoxItem Content=""/>
+                </ComboBox>
+                <Label Content="Termin" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxTermin" Width="110" SelectedIndex="0" Margin="8, 0 ,8, 0">
+                    <!--Terminy-->
+                    <ComboBoxItem Content=""/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 15, 20, 0">
+                <Label Content="Status" Margin="8, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxStatus" Width="110" SelectedIndex="0" Margin="8, 0 ,8, 0">
+                    <!--Statusy-->
+                    <ComboBoxItem Content=""/>
+                </ComboBox>
+                <Label Content="Kategoria" Margin="0, 0 ,8, 0" Foreground="White"/>
+                <ComboBox Height="20" Name="ComboBoxKategoria" Width="110" SelectedIndex="0" Margin="1, 0 ,8, 0">
+                    <!--Kategorie-->
+                    <ComboBoxItem Content=""/>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="195"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"  Orientation="Horizontal" Margin="0,0,0,7">
+                <Button Content="Parametry" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Background="#FF6961F5" BorderBrush="#FF6961F5" Padding="2, 0, 2, 0" Click="ButtonParametry_Click" Foreground="White"/>
+                <Button Content="Konrahenci" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Background="#FF6961F5" BorderBrush="#FF6961F5" Padding="2, 0, 2, 0" Click="ButtonKontrahenci_Click" Foreground="White"/>
+                <Button Content="Pozycje dokumentu" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Background="#FF6961F5" BorderBrush="#FF6961F5" Padding="2, 0, 2, 0" Click="ButtonPozycjeDokumentu_Click" Foreground="White"/>
+            </StackPanel>
+            <Grid Name="Parametry" Grid.Row="1" Margin="0,0,0,-85" Panel.ZIndex="1">
+                <StackPanel>
+                    <GroupBox Height="100" Header="Częstotliwość" Margin="8" BorderBrush="White" Foreground="White" Background="#FF153D8E">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="24"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                <Label Content="Wstawiaj co" Margin="4, 2, 0, 0" Foreground="White"/>
+                                <wpfTool:DoubleUpDown Name="NumBoxOkres" Height="24" VerticalAlignment="Top" Margin="0, 4, 0, 0" ParsingNumberStyle="Integer" DefaultValue="1" Value="1" Text="1" Minimum="1"/>
+                                <ComboBox Height="24" Name="ComboBoxOkres" Width="60" SelectedIndex="0" VerticalAlignment="Top" Margin="4, 4, 0, 0">
+                                    <!--Okresy czasu-->
+                                    <ComboBoxItem Content="dni"/>
+                                    <ComboBoxItem Content="tygodni"/>
+                                    <ComboBoxItem Content="miesięcy"/>
+                                </ComboBox>
+                                <Label Content="Począwszy od" Margin="4, 2, 0, 0" Foreground="White"/>
+                                <DatePicker Name="DatePickerOd" Height="24" VerticalAlignment="Top" Margin="4, 4, 0, 0" Background="White"/>
+                                <Label Content="do" Margin="4, 2, 0, 0" Foreground="White"/>
+                                <Border BorderThickness="1" BorderBrush="Gray" Height="24" VerticalAlignment="Top" Margin="4, 4, 0, 0">
+                                    <Grid Background="White">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Name="CheckBoxDate" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="CheckBoxDate_Click"/>
+                                        <DatePicker Name="DatePickerDo" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0" IsEnabled="False" />
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                            <CheckBox Name="CheckBoxDateMonth" Grid.Row="1" Content="Wyrównaj do ostatniego dnia miesiąca" VerticalAlignment="Center" Margin="280, 0, 0, 0" Foreground="White"/>
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal" Margin="20, 2, 0, 0">
+                        <CheckBox Name="CheckBoxPowiel" Content="Powiel istniejący dokumęt" Click="CheckBoxPowiel_Click" Foreground="White"/>
+                        <TextBox Name="TextBoxFile1" Width="150" Margin="4, 0, 4 ,0" TextChanged="TextBoxFile1_TextChanged" IsEnabled="False"/>
+                        <Button Name="ButtonFile1" Content="Przeglądaj" Margin="4, 0, 4 ,0" Click="ButtonSelectFile1_Click" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 2, 0, 0">
+                        <CheckBox Name="CheckBoxAktualizuj" Content="Stosuj aktualną cenę towarów i usług z kartoteki zamiast ceny z dokumentu(powielanego lub z zakładki pozycje dokumentu)" Click="CheckBoxAktualizuj_Click" Foreground="White"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 0, 0, 0">
+                        <Label Name="LabelRodzajCeny" Content="Rodzaj ceny urzytej do aktualizacji" Margin="15, 0, 8, 0" Foreground="White"/>
+                        <ComboBox Height="20" Name="ComboBoxRodzajCeny" Width="100" SelectedIndex="0" VerticalAlignment="Center" Margin="4, 0, 0, 0" IsEnabled="False">
+                            <ComboBoxItem Content="Detaliczna"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 2, 0, 0">
+                        <CheckBox Name="CheckBoxPrzypadek" Content="W przypadku niepowodzenia(np. braku towaru, przekroczonym imicie kredytwym) ponawiaj do skutku przy kolejnych wywołaniach" Foreground="White"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 2, 0, 0" Height="20">
+                        <CheckBox Name="CheckBoxZapiszWydruki" Content="Zapisz wydruki PDF utworzonych dokumentów" Height="24" Click="CheckBoxZapiszWydruki_Click" Foreground="White"/>
+                        <TextBox Name="TextBoxFile2" Width="150" Margin="4, 0, 4 ,0" TextChanged="TextBoxFile2_TextChanged" IsEnabled="False"/>
+                        <Button Name="ButtonFile2" Content="Przeglądaj" Margin="4, 0, 4 ,0" Click="ButtonSelectFile2_Click" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 2, 20, 0">
+                        <Label Content="Opis (uwagi)"  Margin="0, 0, 20, 0" Foreground="White"/>
+                        <TextBox Name="TextBoxOpis1" Width="610" Margin="4, 2, 4 ,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20, 0, 20, 0">
+                        <TextBlock  Margin="100, 0, 0, 0" FontSize="11" Text="Możesz w tym polu zastosować etykiety {tydzień}, {miesiąc}, {poprzednimiesiąc}, {rok}, które przy wstawianiu zostaną zastąione automatycznie odpowiednią dla aktualnej daty liczbą" TextWrapping="Wrap" Width="610" Foreground="White" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </Grid>
+            <Grid Name="Kontrahenci" Grid.Row="1" Margin="0,0,0,-85" Panel.ZIndex="-9" IsEnabled="False" Visibility="Hidden" VerticalAlignment="Top">
+                <StackPanel Margin="15, 0, 15, 0" Height="180">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Dodaj z kartoteki"  Margin="0, 0 ,4, 0" Background="#FFF0F0F0" Click="ButtonKontrehenciZZ1"/>
+                        <Label Content="lub wybierz cechę" Margin="4, 0 ,4, 0" Foreground="White"/>
+                        <ComboBox Height="20" Width="110" SelectedIndex="0" Margin="4, 0 ,4, 0">
+                            <ComboBoxItem/>
+                            <!--Wypełnij automatycznie-->
+                        </ComboBox>
+                        <Label Content="i/lub grupę"  Margin="4, 0 ,4, 0" Foreground="White"/>
+                        <ComboBox Height="20" Width="110" SelectedIndex="0" Margin="4, 0 ,4, 0">
+                            <ComboBoxItem/>
+                            <!--Wypełnij automatycznie-->
+                        </ComboBox>
+                    </StackPanel>
+                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="#FFA7CDFF" BorderThickness="2" Background="White">
+                        <StackPanel>
+                            <Grid Name="KONGridExample" ShowGridLines="True" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Name="ExampleColumnDefinition1"/>
+                                    <ColumnDefinition Name="ExampleColumnDefinition2"/>
+                                    <ColumnDefinition Name="ExampleColumnDefinition3"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Nazwa" Grid.Column="0"/>
+                                <Label Content="Symbol" Grid.Column="1"/>
+                                <Label Content="NIP" Grid.Column="2"/>
+                            </Grid>
+
+                            <ListView Name="ListViewKontrahenciZZ1" HorizontalContentAlignment="Stretch" SelectionMode="Single">
+                                <!--
+                                <ListViewItem HorizontalAlignment="Stretch" Width="Auto">
+                                    <Grid ShowGridLines="True" HorizontalAlignment="Stretch" Width="Auto">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="A" Grid.Column="0"/>
+                                        <Label Content="B" Grid.Column="1"/>
+                                        <Label Content="C" Grid.Column="2"/>
+                                    </Grid>
+                                </ListViewItem>
+                                -->
+                            </ListView>
+
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Name="PozycjeDokumentu" Grid.Row="1" Margin="15,0,15,-85" Visibility="Hidden" Panel.ZIndex="-1" IsEnabled="False">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button HorizontalAlignment="Left" Content="Dodaj z kartoteki" Margin="0, 0 ,4, 0"/>
+                            <Button HorizontalAlignment="Left" Content="Dodaj usługę jednorazową" Margin="4, 0 ,4, 0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Label HorizontalAlignment="Left" Content="Cena" Margin="4, 0 ,4, 0"/>
+                            <ComboBox HorizontalAlignment="Left" Height="20" Width="110" SelectedIndex="0" Margin="4, 0 ,0, 0">
+                                <ComboBoxItem/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+                    <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="#FFA7CDFF" BorderThickness="2" Background="White">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Typ"/>
+                                <Label Grid.Column="1" Content="Nazwa"/>
+                                <Label Grid.Column="2" Content="Symbol"/>
+                                <Label Grid.Column="3" Content="Opis pozycji"/>
+                                <Label Grid.Column="4" Content="Ilość"/>
+                                <Label Grid.Column="5" Content="J.m."/>
+                                <Label Grid.Column="6" Content="Cena"/>
+                                <Label Grid.Column="7" Content="VAT"/>
+                                <Label Grid.Column="8" Content="Rabat %"/>
+                            </Grid>
+                            <ListView>
+                                <ListViewItem>
+                                    
+                                </ListViewItem>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Height="30" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" Width="220">
+            <Button Content="Zapisz" HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Click="ButtonZapisz_Click" Background="#FF6961F5" Foreground="White"/>
+            <Button Content="Anuluj" HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Click="ButtonAnuluj_Click" Background="#FF6961F5" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</Window>

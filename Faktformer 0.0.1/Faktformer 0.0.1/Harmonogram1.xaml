@@ -1,0 +1,63 @@
+﻿<Window x:Class="Faktformer_0._0._1.Harmonogram1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Faktformer_0._0._1" 
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        Title="Harmonogram" Height="420" MaxHeight="420" MaxWidth="560" MinHeight="420" MinWidth="560" Width="560" Loaded="Window_Loaded" ResizeMode="NoResize">
+    <Grid Background="#2A284F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,22,0,22">
+            <CheckBox Name="CheckBoxPowiadomienia" VerticalAlignment="Center" Content="Wysyłaj powiadomienia ałtomatycznie o " Foreground="White"/>
+            <wpfTool:DoubleUpDown x:Name="NumBoxLiczbaDni" Width="80" DefaultValue="1" ParsingNumberStyle="Integer" Text="1"/>
+            <Label Content="dni począwszy od" VerticalAlignment="Center" Foreground="White"/>
+            <DatePicker Name="PickedDate" Background="White"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="20,0,0,0">
+            <StackPanel Orientation="Horizontal" Height="25" Margin="0, 0, 0, 4">
+                <RadioButton Name="RadioOkresCzasu" Content="co" VerticalAlignment="Center" Margin="0,0,5,0" IsChecked="True" Click="radio1_Clicked" Foreground="White"/>
+
+                <wpfTool:DoubleUpDown x:Name="NumBoxLiczbaCzasu" Width="60" Margin="0, 0, 4, 0" DefaultValue="1" DisplayDefaultValueOnEmptyText="True" ParsingNumberStyle="Integer"/>
+                <ComboBox Width="50" SelectedIndex="0">
+                    <ComboBoxItem Content="dni"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="25">
+                <RadioButton x:Name="RadioCoTydzien" Content="co tydzień w" VerticalAlignment="Center" Margin="0,0,5,0" Click="radio2_Clicked" Foreground="White"/>
+                <CheckBox Name="CheckBoxMonday" Content="Pn" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxTuesday" Content="Wt" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxWednesday" Content="Śr" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxThursday" Content="Czw" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxFriday" Content="Pt" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxSaturday" Content="Sb" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+                <CheckBox Name="CheckBoxSunday" Content="Nd" VerticalAlignment="Center"  Margin="5,0,5,0" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+        <GroupBox Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Center" Background="#153D8E">
+            <GroupBox.Header>
+                <CheckBox Name="CheckBoxUruchomZadanieJakoUzytkownik" Content="Uruchamiaj zdalnie harmonogrmu z uprawnieniami konkretnego urzytownika" Foreground="White"/>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Height="25" HorizontalAlignment="Center" Margin="0, 15, 0 ,0">
+                    <Label Content="Użytkownik" Foreground="White"/>
+                    <TextBox Name="TextBoxUser" Width="160" Margin="4, 0, 4, 0" FontSize="18"/>
+                    <Label Content="Hasło" Foreground="White"/>
+                    <PasswordBox Name="PasswordBoxPassword" Width="160" Margin="4, 0, 0, 0" FontSize="18"/>
+                </StackPanel>
+                <TextBlock Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Text="Urzycie tej opcji jest szczególnie zalecane w przypadku, gdy do połączenia z bazą danych wykorzystywana jest autentykacja Windows lub program urzywany jest na Windows Server. W przeciwnym razie zadania harmonogramu mogą nie ruchamiać się lub działać nieprwidłowo" TextWrapping="Wrap" Foreground="White"/>
+            </StackPanel>
+            
+        </GroupBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Width="220">
+            <Button Content="Zapisz" HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Click="Button_Click_1" Background="#FF6961F5" Foreground="White"/>
+            <Button Content="Anuluj" HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Click="Button_Click" Background="#FF6961F5" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</Window>

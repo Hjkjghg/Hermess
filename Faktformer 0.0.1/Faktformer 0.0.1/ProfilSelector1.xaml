@@ -1,0 +1,63 @@
+﻿<Window x:Class="Faktformer_0._0._1.ProfilSelector1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Faktformer_0._0._1"
+        mc:Ignorable="d"
+        Title="ProfilSelector1" MouseLeftButtonDown="Window_MouseLeftButtonDown" Height="320" Width="530" Background="#FF2A284F" Closed="ProfilSelector1_Closed" Loaded="ProfilSelector_Loaded" ResizeMode="NoResize" WindowStyle="None">
+    <Border BorderBrush="#FF253264" BorderThickness="3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="203*"/>
+                <ColumnDefinition Width="331*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/logo-rabiks-biale.png" Margin="15, 0, 10, 0"/>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Margin="10, 0, 10, 0">
+                    <Grid Margin="0, 2, 0, 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Profil" Foreground="White"/>
+                        <ComboBox Name="Profil" Grid.Column="1" Width="200">
+                            <ComboBoxItem/>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Margin="0, 2, 0, 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Podmiot" Foreground="White"/>
+                        <TextBlock Grid.Column="1" Name="Podmiot" Text="" Foreground="White" FontWeight="Bold" FontSize="14" HorizontalAlignment="Left"/>
+                    </Grid>
+                    <Grid Margin="0, 2, 0, 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Użytkownik" Foreground="White"/>
+                        <ComboBox Name="User" Grid.Column="1" Width="200">
+                            <ComboBoxItem/>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Margin="0, 2, 0, 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Hasło" Foreground="White"/>
+                        <PasswordBox Name="Password" Grid.Column="1" Width="200"/>
+                    </Grid>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10, 0, 0">
+                    <Button Content="Zaloguj"  HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Background="#FF6961F5" Foreground="White" Click="ButtonLogIn_Click"/>
+                    <Button Content="Wyjdź" HorizontalAlignment="Center" Margin="10, 0, 10, 0" Width="90" Background="#FF6961F5" Foreground="White" Click="ButtonQuit_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
