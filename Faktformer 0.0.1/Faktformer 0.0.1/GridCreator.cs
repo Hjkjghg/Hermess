@@ -20,9 +20,26 @@ namespace Faktformer_0._0._1
     internal class GridCreator
     {
         private Grid myGrid;
-        public GridCreator() 
+        private Window parent;
+
+        public GridCreator(ref Window window) 
         {
             myGrid = new Grid();
+            parent = window;
+        }
+
+        public void ChangeParentWindow(ref Window window)
+        {
+            Window previosParent = parent;
+            parent = window;
+        }
+        private void ReparentAllElements()
+        {
+            foreach (FrameworkElement element in myGrid.Children)
+            {
+                myGrid.UnregisterName(element.Name);
+                myGrid.RegisterName(element.Name, element);
+            }
         }
 
         public void SetGridHeight(double height)
@@ -61,7 +78,7 @@ namespace Faktformer_0._0._1
             myGrid.Background = brush;
         }
 
-
+        
         //dodaj window
         public void AppendElementToGrid(FrameworkElement element, int row = 0, int column = 0)
         {
@@ -80,10 +97,10 @@ namespace Faktformer_0._0._1
             myGrid.Children.Add(element);
         }
 
-        public void AddGridRow(GridLength gridLength = new GridLength())
+        public void AddGridRow(GridLength height = new GridLength())
         {
             RowDefinition rowDefinition = new RowDefinition();
-            rowDefinition.Height = gridLength;
+            rowDefinition.Height = height;
             myGrid.RowDefinitions.Add(rowDefinition);
         }
         public void AddGridRow(double height = 0)
@@ -92,18 +109,18 @@ namespace Faktformer_0._0._1
             rowDefinition.Height = (height != 0) ? new GridLength(height) : new GridLength();
             myGrid.RowDefinitions.Add(rowDefinition);
         }
-        public void ChangeGridRowHeight(int index, GridLength gridLength)
+        public void ChangeGridRowHeight(int index, GridLength height)
         {
-            myGrid.RowDefinitions[index].Height = gridLength;
+            myGrid.RowDefinitions[index].Height = height;
         }
         private void ChangeGridRowHeight(int index, double height)
         {
             myGrid.RowDefinitions[index].Height = new GridLength(height);
         }
-        public void AddGridColumn(GridLength gridLength = new GridLength())
+        public void AddGridColumn(GridLength width = new GridLength())
         {
             ColumnDefinition columnDefinition = new ColumnDefinition();
-            columnDefinition.Width = gridLength;
+            columnDefinition.Width = width;
             myGrid.ColumnDefinitions.Add(columnDefinition);
         }
         public void AddGridColumn(double width = 0)
@@ -112,20 +129,25 @@ namespace Faktformer_0._0._1
             columnDefinition.Width = (width != 0) ? new GridLength(width) : new GridLength();
             myGrid.ColumnDefinitions.Add(columnDefinition);
         }
-        public void ChangeGridColumnWidth(int index, GridLength gridLength)
+        public void ChangeGridColumnWidth(int index, GridLength width)
         {
-            myGrid.ColumnDefinitions[index].Width = gridLength;
+            myGrid.ColumnDefinitions[index].Width = width;
         }
         public void ChangeGridColumnWidth(int index, double width)
         {
             myGrid.ColumnDefinitions[index].Width = new GridLength(width);
         }
 
-        public void AddLabelToGrid(Window window, string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        public void AddLabelToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
         {
             Label label = new Label();
             label.Name = name;
-            window.RegisterName(name, label);
+            if(myGrid.FindName(name) == null)
+            {
+                myGrid.UnregisterName(name);
+            }
+            myGrid.RegisterName(name, label);
+
             Grid.SetRow(label, row);
             Grid.SetColumn(label, column);
             label.Content = content;
@@ -141,11 +163,15 @@ namespace Faktformer_0._0._1
             label.VerticalAlignment = verticalAlignment;
             myGrid.Children.Add(label);
         }
-        public void AddTextBlockToGrid(Window window, string name, string text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        public void AddTextBlockToGrid(string name, string text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
         {
             TextBlock textBlock = new TextBlock();
             textBlock.Name = name;
-            window.RegisterName(name, textBlock);
+            if (myGrid.FindName(name) == null)
+            {
+                myGrid.UnregisterName(name);
+            }
+            myGrid.RegisterName(name, textBlock);
             Grid.SetRow(textBlock, row);
             Grid.SetColumn(textBlock, column);
             textBlock.Text = text;
@@ -160,9 +186,33 @@ namespace Faktformer_0._0._1
             textBlock.HorizontalAlignment = horizontalAlignment;
             textBlock.VerticalAlignment = verticalAlignment;
         }
+        public void AddCheckBoxToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        {
+            CheckBox checkBox = new CheckBox();
+            checkBox.Name = name;
+            if (myGrid.FindName(name) == null)
+            {
+                myGrid.UnregisterName(name);
+            }
+            myGrid.RegisterName(name, checkBox);
+            Grid.SetRow(checkBox, row);
+            Grid.SetColumn(checkBox, column);
+            checkBox.Content = content;
+            if (width != 0)
+            {
+                checkBox.Width = width;
+            }
+            if(height != 0)
+            {
+                checkBox.Height = height;
+            }
+            checkBox.HorizontalAlignment = horizontalAlignment;
+            checkBox.VerticalAlignment = verticalAlignment;
+            myGrid.Children.Add(checkBox);
+        }
         public void AddEventListenerToElementByName(RoutedEventHandler routedEventHandler, string name)
         {
-          
+            
         }
     }
 }
