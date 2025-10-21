@@ -139,12 +139,12 @@ namespace Faktformer_0._0._1
             //ustawienie zamiennych wjściowych
             if (succes)
             {
-                zadanieAktywne = (bool)CheckBoxZadnieAktywne.IsChecked;
-                powiel = (bool)CheckBoxPowiel.IsChecked;
-                aktualizuj = (bool)CheckBoxAktualizuj.IsChecked;
-                przypadek = (bool)CheckBoxPrzypadek.IsChecked;
-                zapiszWydruki = (bool)CheckBoxZapiszWydruki.IsChecked;
-                dateToChecked = (bool)CheckBoxDateMonth.IsChecked;
+                zadanieAktywne = BoolNullToBool.Convert(CheckBoxZadnieAktywne.IsChecked);
+                powiel = BoolNullToBool.Convert(CheckBoxPowiel.IsChecked);
+                aktualizuj = BoolNullToBool.Convert(CheckBoxAktualizuj.IsChecked);
+                przypadek = BoolNullToBool.Convert(CheckBoxPrzypadek.IsChecked);
+                zapiszWydruki = BoolNullToBool.Convert(CheckBoxZapiszWydruki.IsChecked);
+                dateToChecked = BoolNullToBool.Convert(CheckBoxDateMonth.IsChecked);
                 name = TextBoxNazwa.Text;
                 dateFrom = DatePickerOd.DisplayDate;
                 description = TextBoxOpis1.Text;
@@ -185,28 +185,28 @@ namespace Faktformer_0._0._1
         //włącza i wyłącza interakcje z datepickerem zależnie od checkboxa
         private void CheckBoxDate_Click(object sender, RoutedEventArgs e)
         {
-            DatePickerDo.IsEnabled = (bool)CheckBoxDate.IsChecked;
+            DatePickerDo.IsEnabled = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
         }
 
         //włącza i wyłącza interakcje z comboboxem zależnie od checkboxa
         private void CheckBoxAktualizuj_Click(object sender, RoutedEventArgs e)
         {                       
-            LabelRodzajCeny.IsEnabled = (bool)CheckBoxAktualizuj.IsChecked;
-            ComboBoxRodzajCeny.IsEnabled = (bool)CheckBoxAktualizuj.IsChecked;           
+            LabelRodzajCeny.IsEnabled = BoolNullToBool.Convert(CheckBoxAktualizuj.IsChecked);
+            ComboBoxRodzajCeny.IsEnabled = BoolNullToBool.Convert(CheckBoxAktualizuj.IsChecked);           
         }
 
         //włącza i wyłącza interakcje z filepickerem zależnie od checkboxa (1)
         private void CheckBoxPowiel_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxFile1.IsEnabled = (bool)CheckBoxPowiel.IsChecked;
-            ButtonFile1.IsEnabled = (bool)CheckBoxPowiel.IsChecked;
+            TextBoxFile1.IsEnabled = BoolNullToBool.Convert(CheckBoxPowiel.IsChecked);
+            ButtonFile1.IsEnabled = BoolNullToBool.Convert(CheckBoxPowiel.IsChecked);
         }
 
         //włącza i wyłącza interakcje z filepickerem zależnie od checkboxa (2)
         private void CheckBoxZapiszWydruki_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxFile2.IsEnabled = (bool)CheckBoxZapiszWydruki.IsChecked;
-            ButtonFile2.IsEnabled = (bool)CheckBoxZapiszWydruki.IsChecked;
+            TextBoxFile2.IsEnabled = BoolNullToBool.Convert(CheckBoxZapiszWydruki.IsChecked);
+            ButtonFile2.IsEnabled = BoolNullToBool.Convert(CheckBoxZapiszWydruki.IsChecked);
         }
 
         //przełącza kategorie na parametry

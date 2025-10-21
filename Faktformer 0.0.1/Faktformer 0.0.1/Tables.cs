@@ -27,7 +27,7 @@ namespace Faktformer_0._0._1
         }
 
         //zwraca wybrany rząd tabeli jako List<object>
-        public List<object>? ReturnRow(int index)
+        public List<object> ReturnRow(int index)
         {
             if (table.Count >= index)
             {

@@ -78,11 +78,11 @@ namespace Faktformer_0._0._1
                 timeFormat = ComboBoxOkres.SelectedIndex;
                 selectedIndexOfMagazyn = ComboBoxMagazyn.SelectedIndex;
                 selectedIndexOfRodzaj = ComboBoxRodzaj.SelectedIndex;
-                dateToChecked = (bool)CheckBoxDate.IsChecked;
-                zadanieAktywne = (bool)CheckBoxZadanieAktywne.IsChecked;
-                przypadek = (bool)CheckBoxPrzypadek.IsChecked;
-                zapiszWydruki = (bool)CheckBoxZapiszWydruki.IsChecked;
-                wyrownajDoDaty = (bool)CheckBoxDateMonth.IsChecked;
+                dateToChecked = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
+                zadanieAktywne = BoolNullToBool.Convert(CheckBoxZadanieAktywne.IsChecked);
+                przypadek = BoolNullToBool.Convert(CheckBoxPrzypadek.IsChecked);
+                zapiszWydruki = BoolNullToBool.Convert(CheckBoxZapiszWydruki.IsChecked);
+                wyrownajDoDaty = BoolNullToBool.Convert(CheckBoxDateMonth.IsChecked);
                 Close();
             }
         }
@@ -96,7 +96,7 @@ namespace Faktformer_0._0._1
         //włącza i wyłącza interakcje z datepickerem zależnie od checkboxa
         private void CheckBoxDate_Click(object sender, RoutedEventArgs e)
         {
-            DatePickerDo.IsEnabled = (bool)CheckBoxDate.IsChecked;
+            DatePickerDo.IsEnabled = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
         }
 
         private void CheckBoxZapiszWydruki_Click(object sender, RoutedEventArgs e)

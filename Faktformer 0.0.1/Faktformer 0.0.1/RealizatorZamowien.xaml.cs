@@ -94,10 +94,10 @@ namespace Faktformer_0._0._1
                 }
                 numberOfTime = int.Parse(NumBoxOkres.Text);
                 timeFormat = ComboBoxOkres.SelectedIndex;
-                dateToChecked = (bool)CheckBoxDate.IsChecked;
-                zadanieAktywne = (bool)CheckBoxZadanieAktywne.IsChecked;
-                zapiszWydruki = (bool)CheckBoxZapiszWydruki.IsChecked;
-                wyrownajDoDaty = (bool)CheckBoxDateMonth.IsChecked;
+                dateToChecked = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
+                zadanieAktywne = BoolNullToBool.Convert(CheckBoxZadanieAktywne.IsChecked);
+                zapiszWydruki = BoolNullToBool.Convert(CheckBoxZapiszWydruki.IsChecked);
+                wyrownajDoDaty = BoolNullToBool.Convert(CheckBoxDateMonth.IsChecked);
                 selectedIndexOfMagazyn = ComboBoxMagazyn.SelectedIndex;
                 selectedIndexOfRodzajFaktury = ComboBoxRodzajFaktura.SelectedIndex;
                 selectedIndexOfWaluta = ComboBoxWaluta.SelectedIndex;
@@ -115,7 +115,7 @@ namespace Faktformer_0._0._1
 
         private void CheckBoxDate_Click(object sender, RoutedEventArgs e)
         {
-            DatePickerDo.IsEnabled = (bool)CheckBoxDate.IsChecked;
+            DatePickerDo.IsEnabled = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
         }
 
         private void CheckBoxZapiszWydruki_Click(object sender, RoutedEventArgs e)

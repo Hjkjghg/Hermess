@@ -42,8 +42,8 @@ namespace Faktformer_0._0._1
         private void ButtonZapisz_Click(object sender, RoutedEventArgs e)
         {
             succes = true;
-            boolData[0] = (bool)CheckBoxProces.IsChecked;
-            boolData[1] = (bool)CheckBoxZalogowanie.IsChecked;
+            boolData[0] = BoolNullToBool.Convert(CheckBoxProces.IsChecked);
+            boolData[1] = BoolNullToBool.Convert(CheckBoxZalogowanie.IsChecked);
             rodzajCeny = ComboBoxCena.SelectedIndex;
             Close();
         }

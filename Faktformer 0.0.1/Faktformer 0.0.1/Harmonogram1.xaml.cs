@@ -65,16 +65,16 @@ namespace Faktformer_0._0._1
             liczbaCzasu = int.Parse(NumBoxLiczbaCzasu.Text);
             user = TextBoxUser.Text;
             password = PasswordBoxPassword.Password;
-            coOkresCzasuCzyTydzien = (bool)RadioOkresCzasu.IsChecked;
-            czyPowiadoienia = (bool)CheckBoxPowiadomienia.IsChecked;
-            uruchomZadanieJakoUzytkownik = (bool)CheckBoxUruchomZadanieJakoUzytkownik.IsChecked;
-            selectedDaysOfWeek[0] = (bool)CheckBoxMonday.IsChecked;
-            selectedDaysOfWeek[1] = (bool)CheckBoxTuesday.IsChecked;
-            selectedDaysOfWeek[2] = (bool)CheckBoxWednesday.IsChecked;
-            selectedDaysOfWeek[3] = (bool)CheckBoxThursday.IsChecked;
-            selectedDaysOfWeek[4] = (bool)CheckBoxFriday.IsChecked;
-            selectedDaysOfWeek[5] = (bool)CheckBoxSaturday.IsChecked;
-            selectedDaysOfWeek[6] = (bool)CheckBoxSunday.IsChecked;
+            coOkresCzasuCzyTydzien = BoolNullToBool.Convert(RadioOkresCzasu.IsChecked);
+            czyPowiadoienia = BoolNullToBool.Convert(CheckBoxPowiadomienia.IsChecked);
+            uruchomZadanieJakoUzytkownik = BoolNullToBool.Convert(CheckBoxUruchomZadanieJakoUzytkownik.IsChecked);
+            selectedDaysOfWeek[0] = BoolNullToBool.Convert(CheckBoxMonday.IsChecked);
+            selectedDaysOfWeek[1] = BoolNullToBool.Convert(CheckBoxTuesday.IsChecked);
+            selectedDaysOfWeek[2] = BoolNullToBool.Convert(CheckBoxWednesday.IsChecked);
+            selectedDaysOfWeek[3] = BoolNullToBool.Convert(CheckBoxThursday.IsChecked);
+            selectedDaysOfWeek[4] = BoolNullToBool.Convert(CheckBoxFriday.IsChecked);
+            selectedDaysOfWeek[5] = BoolNullToBool.Convert(CheckBoxSaturday.IsChecked);
+            selectedDaysOfWeek[6] = BoolNullToBool.Convert(CheckBoxSunday.IsChecked);
             Close();
         }
 
@@ -88,13 +88,13 @@ namespace Faktformer_0._0._1
         //Jeśli radio zaznaczone odznacz pozostałę (1)
         private void radio1_Clicked(object sender, RoutedEventArgs e)
         {
-            if ((bool)RadioOkresCzasu.IsChecked) { RadioCoTydzien.IsChecked = false; }
+            if (BoolNullToBool.Convert(RadioOkresCzasu.IsChecked)) { RadioCoTydzien.IsChecked = false; }
         }
 
         //Jeśli radio zaznaczone odznacz pozostałę (2)
         private void radio2_Clicked(object sender, RoutedEventArgs e)
         {
-            if ((bool)RadioCoTydzien.IsChecked) { RadioOkresCzasu.IsChecked = false; }
+            if (BoolNullToBool.Convert(RadioCoTydzien.IsChecked)) { RadioOkresCzasu.IsChecked = false; }
         }
     }
 }

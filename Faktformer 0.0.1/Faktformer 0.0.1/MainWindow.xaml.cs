@@ -37,7 +37,7 @@ namespace Faktformer_0._0._1
         }
 
         //przechowuje króra karegoria jest wybrana
-        private string selectdTable;
+        private string selectedTable = "Zadania";
 
         //zenętrzna zmienna przechoująca ilość rekordów w aktualnie wyświetlanej tabeli, dla urzytku w innych funkcjach
         private int totalTableLength;
@@ -57,7 +57,7 @@ namespace Faktformer_0._0._1
         {
             if (logedIn)
             {
-                switch (selectdTable)
+                switch (selectedTable)
                 {
                     case "Zadania":
                         CreateMainTable(GetFromDB1());
@@ -76,7 +76,6 @@ namespace Faktformer_0._0._1
         //wprowadza wizualną zawartość tabeli po jej załadowaniu
         private void TableMain_Loaded(object sender, RoutedEventArgs e)
         {
-            selectdTable = "Zadania";
             selectFromCorrectDBToTable();
         }
 
@@ -306,19 +305,19 @@ namespace Faktformer_0._0._1
         //prejście do tab1
         private void ButtonTabZadania_Click(object sender, RoutedEventArgs e)
         {
-            selectdTable = "Zadania";
+            selectedTable = "Zadania";
             selectFromCorrectDBToTable();
         }
         //przejście do tab2
         private void ButtonTabHistoria_Click(object sender, RoutedEventArgs e)
         {
-            selectdTable = "Historia";
+            selectedTable = "Historia";
             selectFromCorrectDBToTable();
         }
         //przejście do tab3
         private void ButtonTabLog_Click(object sender, RoutedEventArgs e)
         {
-            selectdTable = "Log";
+            selectedTable = "Log";
             selectFromCorrectDBToTable();
         }
         //Uruchomienie okna dialogowego tworzenia nowego zadania
