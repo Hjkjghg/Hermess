@@ -14,6 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 
@@ -69,13 +70,35 @@ namespace Faktformer_0._0._1
         {
             myGrid.Background = brush;
         }
+        public void ChangeColorOfGridCell(string colorHEX, int rowIndex, int columnIndex, string rectangleName = "")
+        {
+
+            System.Windows.Shapes.Rectangle rec = new System.Windows.Shapes.Rectangle()
+            {
+                Fill = new SolidColorBrush(ColorHexRgbConverter.HexToColor(colorHEX)),
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            if (rectangleName != "")
+            {
+                rec.Name = rectangleName;
+                if(myGrid.FindName(rectangleName) == null)
+                {
+                    myGrid.UnregisterName(rectangleName);
+                }
+                myGrid.RegisterName(rectangleName, rec);
+            }
+            Grid.SetRow(rec, rowIndex);
+            Grid.SetColumn(rec, columnIndex);
+            myGrid.Children.Add(rec);
+        }
 
         
         //dodaj window
-        public void AppendElementToGrid(FrameworkElement element, int row = 0, int column = 0)
+        public void AppendElementToGrid(FrameworkElement element, int rowIndex = 0, int columnIndex = 0)
         {
-            Grid.SetRow(element, row);
-            Grid.SetColumn(element, column);
+            Grid.SetRow(element, rowIndex);
+            Grid.SetColumn(element, columnIndex);
             myGrid.Children.Add(element);
         }
         //dodaj window
