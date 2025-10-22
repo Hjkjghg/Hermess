@@ -175,11 +175,17 @@ namespace Faktformer_0._0._1
             ((StackPanel)this.FindName($"TabPanel{selectedTableInt.ToString()}")).Children.Clear();
             totalTableLength = dataFromDB.ReturnLenght(0);
             selectedTableIndex = selectedTableInt;
+            //zrobione na przyszłość, jakby tabela nie potrzebowała checkboxów
+            bool checkboxed = false;
+            if(selectedTableInt == 1 || selectedTableInt == 2 || selectedTableInt == 3)
+            {
+                checkboxed = true;
+            }
 
             for (int j = 0; j < dataFromDB.ReturnLenght(0); j++)
             {
                 List<string> temp1 = ListCaster.CastString(dataFromDB.ReturnRow(j));
-                CreateNewGridAsTableItem(j, temp1, selectedTableInt);
+                CreateNewGridAsTableItem(j, temp1, selectedTableInt, checkboxed);
             }
             DisplayTableNumS();
             //P.S. To jest głupie ale włówczas nie mogłem wymyśleć lepszego rozwiązania
@@ -203,7 +209,7 @@ namespace Faktformer_0._0._1
 
         //tworzy nową siatkę, wypełnia ją danymi i wrzuca do stack panelu
         //przyjmuje int, który jest Lp. i id kolumny, oraz string[] który przyjmuje dane do wprowadzenia
-        private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB, int selectedTable)
+        private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB, int selectedTable, bool checkboxed)
         {
             string NameNumber = elementId.ToString();
             string sTNumber = selectedTable.ToString();
@@ -222,9 +228,15 @@ namespace Faktformer_0._0._1
             {
                 gridCreator.AddGridColumn(exampleTable.ColumnDefinitions[i].Width);
             }
-            gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", mainCheckBox.HorizontalAlignment, mainCheckBox.VerticalAlignment, 0, 0, mainCheckBox.Margin);
-            gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
-            for (int i = 0; i < exampleTable.ColumnDefinitions.Count - 1; i++)
+            int skipBox = 0;
+            if (checkboxed)
+            {
+                gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", mainCheckBox.HorizontalAlignment, mainCheckBox.VerticalAlignment, 0, 0, mainCheckBox.Margin);
+                gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
+                skipBox = 1;
+            }
+            
+            for (int i = 0; i < exampleTable.ColumnDefinitions.Count - skipBox; i++)
             {
                 gridCreator.AddTextBlockToGrid($"table{sTNumber}Textbox{NameNumber}U{i.ToString()}", dataFromDB[i], exampleTextBlock.HorizontalAlignment, exampleTextBlock.VerticalAlignment, 0, i + 1, exampleTextBlock.Margin);
             }
