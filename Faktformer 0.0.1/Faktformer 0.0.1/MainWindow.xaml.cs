@@ -86,7 +86,7 @@ namespace Faktformer_0._0._1
             //sprawdza stan zaznaczenia głównego checkboxa i ustawia ten stan zaznaczenia dla wszystki checkboxów
             for(int i = 0; i < totalTableLength; i++)
             {
-                string checkBoxName = $"tableCheckBox{i}";
+                string checkBoxName = $"table{selectedTableIndex}CheckBox{i}";
                 CheckBox checkBoxByName = (CheckBox)TabPanel.FindName(checkBoxName);
                 checkBoxByName.IsChecked = MainCheckBox.IsChecked;
             }
@@ -161,25 +161,27 @@ namespace Faktformer_0._0._1
         private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB, int selectedTable)
         {
             string NameNumber = elementId.ToString();
+            string sTNumber = selectedTable.ToString();
 
-            GridCreator gridCreator = new GridCreator();
+            GridCreator gridCreator = new GridCreator(this);
             gridCreator.SetGridHeight(ExampleTable.Height);
             gridCreator.SetGridWidth(ExampleTable.Width);
+            gridCreator.ToggleGridsGridLines();
             gridCreator.AddGridRow();
             for(int i = 0; i < ExampleTable.ColumnDefinitions.Count; i++)
             {
                 gridCreator.AddGridColumn(ExampleTable.ColumnDefinitions[i].Width);
             }
-            gridCreator.AddCheckBoxToGrid($"table{selectedTable}CheckBox{NameNumber}", "", MainCheckBox.HorizontalAlignment, MainCheckBox.VerticalAlignment, 0, 0, MainCheckBox.Margin);
+            gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", MainCheckBox.HorizontalAlignment, MainCheckBox.VerticalAlignment, 0, 0, MainCheckBox.Margin);
             gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
             for (int i = 0; i < ExampleTable.ColumnDefinitions.Count - 1; i++)
             {
-                gridCreator.AddTextBlockToGrid($"table{selectedTable}Textbox{NameNumber},{i}", dataFromDB[i], ExampleTextBlock.HorizontalAlignment, ExampleTextBlock.VerticalAlignment, 0, i + 1, ExampleTextBlock.Margin);
+                gridCreator.AddTextBlockToGrid($"table{sTNumber}Textbox{NameNumber}U{i.ToString()}", dataFromDB[i], ExampleTextBlock.HorizontalAlignment, ExampleTextBlock.VerticalAlignment, 0, i + 1, ExampleTextBlock.Margin);
             }
 
 
             //tworzenie bordera tabeli
-            Border myNewBorder = CreateNewBorderWithTemplate($"table{selectedTable}Border{NameNumber}", ExampleBorder.Height, ExampleBorder.Width, ExampleBorder.VerticalAlignment, ExampleBorder.HorizontalAlignment, ExampleBorder.BorderThickness, ExampleBorder.BorderBrush);
+            Border myNewBorder = CreateNewBorderWithTemplate($"table{sTNumber}Border{NameNumber}", ExampleBorder.Height, ExampleBorder.Width, ExampleBorder.VerticalAlignment, ExampleBorder.HorizontalAlignment, ExampleBorder.BorderThickness, ExampleBorder.BorderBrush);
 
             //alokacja siatki do bordera
             gridCreator.AppendGridTo(ref myNewBorder);

@@ -23,6 +23,10 @@ namespace Faktformer_0._0._1
     internal class GridCreator
     {
         private Grid myGrid;
+        private Window currentWindow;
+        private Window previousWindow;
+        private bool gridLineShown;
+
         public enum eventType
         {
             Click,
@@ -30,9 +34,28 @@ namespace Faktformer_0._0._1
 
         }
 
-        public GridCreator() 
+        public GridCreator(Window parent) 
         {
             myGrid = new Grid();
+            currentWindow = parent;
+            previousWindow = parent;
+            gridLineShown = false;
+        }
+
+        public void SetNewParentWindow(Window parent)
+        {
+            previousWindow = currentWindow;
+            currentWindow = parent;
+            RenameAllElementsToNewParent();
+        }
+
+        private void RenameAllElementsToNewParent()
+        {
+            foreach(FrameworkElement element in myGrid.Children)
+            {
+                previousWindow.UnregisterName(element.Name);
+                currentWindow.RegisterName(element.Name, element);
+            }
         }
 
         public void SetGridHeight(double height)
@@ -87,17 +110,22 @@ namespace Faktformer_0._0._1
             if (rectangleName != "")
             {
                 rec.Name = rectangleName;
-                if(myGrid.FindName(rectangleName) == null)
+                if(currentWindow.FindName(rectangleName) != null)
                 {
-                    myGrid.UnregisterName(rectangleName);
+                    currentWindow.UnregisterName(rectangleName);
                 }
-                myGrid.RegisterName(rectangleName, rec);
+                currentWindow.RegisterName(rectangleName, rec);
             }
             Grid.SetRow(rec, rowIndex);
             Grid.SetColumn(rec, columnIndex);
             myGrid.Children.Add(rec);
         }
 
+        public void ToggleGridsGridLines()
+        {
+            gridLineShown = !gridLineShown;
+            myGrid.ShowGridLines = gridLineShown;
+        }
         
         //dodaj window
         public void AppendElementToGrid(FrameworkElement element, int rowIndex = 0, int columnIndex = 0)
@@ -109,7 +137,7 @@ namespace Faktformer_0._0._1
         //dodaj window
         public void ReplaceElementByName(string name, FrameworkElement element)
         {
-            FrameworkElement temp = (FrameworkElement)myGrid.FindName(name);
+            FrameworkElement temp = (FrameworkElement)currentWindow.FindName(name);
             Grid.SetRow(element, Grid.GetRow(temp));
             Grid.SetColumn(element, Grid.GetColumn(temp));
             myGrid.Children.Remove(temp);
@@ -163,11 +191,11 @@ namespace Faktformer_0._0._1
             Label label = new Label();
             label.Name = name;
             label.Margin = margin;
-            if(myGrid.FindName(name) == null)
+            if(currentWindow.FindName(name) != null)
             {
-                myGrid.UnregisterName(name);
+                currentWindow.UnregisterName(name);
             }
-            myGrid.RegisterName(name, label);
+            currentWindow.RegisterName(name, label);
 
             Grid.SetRow(label, row);
             Grid.SetColumn(label, column);
@@ -189,11 +217,11 @@ namespace Faktformer_0._0._1
             TextBlock textBlock = new TextBlock();
             textBlock.Name = name;
             textBlock.Margin = margin; 
-            if (myGrid.FindName(name) == null)
+            if (currentWindow.FindName(name) != null)
             {
-                myGrid.UnregisterName(name);
+                currentWindow.UnregisterName(name);
             }
-            myGrid.RegisterName(name, textBlock);
+            currentWindow.RegisterName(name, textBlock);
             Grid.SetRow(textBlock, row);
             Grid.SetColumn(textBlock, column);
             textBlock.Text = text;
@@ -207,17 +235,18 @@ namespace Faktformer_0._0._1
             }
             textBlock.HorizontalAlignment = horizontalAlignment;
             textBlock.VerticalAlignment = verticalAlignment;
+            myGrid.Children.Add(textBlock);
         }
         public void AddCheckBoxToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, Thickness margin = new Thickness(), double width = 0, double height = 0)
         {
             CheckBox checkBox = new CheckBox();
             checkBox.Name = name;
             checkBox.Margin = margin;
-            if (myGrid.FindName(name) == null)
+            if (currentWindow.FindName(name) != null)
             {
-                myGrid.UnregisterName(name);
+                currentWindow.UnregisterName(name);
             }
-            myGrid.RegisterName(name, checkBox);
+            currentWindow.RegisterName(name, checkBox);
             Grid.SetRow(checkBox, row);
             Grid.SetColumn(checkBox, column);
             checkBox.Content = content;
@@ -235,7 +264,7 @@ namespace Faktformer_0._0._1
         }
         public void AddEventListenerToElementByName(RoutedEventHandler routedEventHandler, string name, eventType typeOfEvent)
         {
-            Object element = myGrid.FindName(name);
+            Object element = currentWindow.FindName(name);
             switch (element)
             {
                 case (CheckBox):
