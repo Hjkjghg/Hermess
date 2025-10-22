@@ -270,6 +270,15 @@ namespace Faktformer_0._0._1
         private void CreateNewGridAsTableItemKON(int elementId,List<string> dataFromDB)
         {
             ListViewItem myNewItem = CreateNewListViewItem($"ListItem{elementId}", HorizontalAlignment.Stretch);
+            //GridCreator gridCreator = new GridCreator(this);
+            //gridCreator.SetGridWidth(KONGridExample.Width);
+            //gridCreator.AddGridRow();
+            //for (int i = 0; i < KONGridExample.ColumnDefinitions.Count; i++)
+            //{
+            //    gridCreator.AddGridColumn(KONGridExample.ColumnDefinitions[i].Width);
+            //}
+            //gridCreator.AddTextBlockToGrid($"TextBlock{}", dataFromDB[i]);
+
             Grid myNewGrid = CreateNewGrid(KONGridExample.ShowGridLines, KONGridExample.HorizontalAlignment, KONGridExample.Width);
             for (int i = 0; i < dataFromDB.Count; i++)
             {
