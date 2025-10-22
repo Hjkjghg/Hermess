@@ -82,6 +82,7 @@ namespace Faktformer_0._0._1
                 CreateMainTable(GetFromDB1(), 1);
                 CreateMainTable(GetFromDB2(), 2);
                 CreateMainTable(GetFromDB3(), 3);
+                selectedTableIndex = 1;
             }
         }
 
@@ -95,19 +96,24 @@ namespace Faktformer_0._0._1
                         GridSettings.EnableDisabelGrid(ref Zadania, true);
                         GridSettings.EnableDisabelGrid(ref Historia, false);
                         GridSettings.EnableDisabelGrid(ref Log, false);
+                        selectedTableIndex = 1;
+                        selectedTable = "Zadania";
                         break;
                     case "Historia":
                         GridSettings.EnableDisabelGrid(ref Zadania, false);
                         GridSettings.EnableDisabelGrid(ref Historia, true);
                         GridSettings.EnableDisabelGrid(ref Log, false);
+                        selectedTableIndex = 2;
+                        selectedTable = "Historia";
                         break;
                     case "Log":
                         GridSettings.EnableDisabelGrid(ref Zadania, false);
                         GridSettings.EnableDisabelGrid(ref Historia, false);
                         GridSettings.EnableDisabelGrid(ref Log, true);
+                        selectedTableIndex = 3;
+                        selectedTable = "Log";
                         break;
                 }
-                MainCheckBoxUncheck();
             }
         }
 
@@ -147,7 +153,7 @@ namespace Faktformer_0._0._1
             int toDisplay = 0;
             for (int i = 0; i < totalTableLength; i++)
             {
-                CheckBox checkBoxTest = (CheckBox)(this.FindName($"table{selectedTableIndex}CheckBox{i}"));
+                CheckBox checkBoxTest = (CheckBox)(this.FindName($"table{selectedTableIndex.ToString()}CheckBox{i}"));
                 if(checkBoxTest.IsChecked == true)
                 {
                     selectedCheckBoxes.Add(true);
@@ -191,6 +197,7 @@ namespace Faktformer_0._0._1
         //jest urzywana w przypadku odświerzenia tabeli, bądź gdy jeden pub więcej podrzędnych checkboxów zostanie odznaczonych
         private void MainCheckBoxUncheck()
         {
+
             ((CheckBox)this.FindName($"MainCheckBox{selectedTableIndex.ToString()}")).IsChecked = false;            
         }
 

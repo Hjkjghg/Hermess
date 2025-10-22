@@ -239,21 +239,20 @@
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="330"/>
-                    <ColumnDefinition Width="393*"/>
+                    <ColumnDefinition Width="330*"/>
                     <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15, 0, 0, 0">
-                    <Button Content="Nowe zadanie czykliczne" HorizontalAlignment="Left" Padding="4" Margin="0, 10, 0, 10" Click="ButtonNoweZadanie_Click" Background="#FF6961F5" Foreground="White"/>
-                    <Button Content="Uruchom zadania" HorizontalAlignment="Left" Padding="4" Margin="20, 10, 0, 10" Background="#FF6961F5" Foreground="White"/>
-                    <Button HorizontalAlignment="Left" Padding="4" Margin="20, 10, 0, 10" Click="ButtonRefresh_Click" Background="#FF6961F5" Foreground="White">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15, 0, 0, 0" HorizontalAlignment="Left">
+                    <Button Content="Wycofaj zaznaczone" HorizontalAlignment="Left" Padding="4" Margin="0, 10, 0, 10" Background="#FF6961F5" Foreground="White"/>
+                    <Button HorizontalAlignment="Left" Padding="4" Margin="10, 10, 0, 10" Background="#FF6961F5" Foreground="White">
                         <Image Height="15" Width="15"/>
                     </Button>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Zreailzuj zamówienia" HorizontalAlignment="Right" Padding="4" Margin="10, 10, 10, 10" Background="#FF6961F5" Foreground="White" Click="ButtonRealizojZamowienie_Click"/>
-                    <Button Content="Powiel dokumenty" HorizontalAlignment="Right" Padding="4" Margin="10, 10, 10, 10" Background="#FF6961F5" Foreground="White" Click="ButtonPowielDokumenty_Click"/>
-                    <Button Content="Faktura seryjna jednorazowa" HorizontalAlignment="Right" Padding="4" Margin="10, 10, 10, 10" Background="#FF6961F5" Foreground="White"/>
+                    <Button HorizontalAlignment="Left" Padding="4" Margin="10, 10, 0, 10" Background="#FF6961F5" Foreground="White">
+                        <Image Height="15" Width="15"/>
+                    </Button>
+                    <Button HorizontalAlignment="Left" Padding="4" Margin="10, 10, 0, 10" Click="ButtonRefresh_Click" Background="#FF6961F5" Foreground="White">
+                        <Image Height="15" Width="15"/>
+                    </Button>
                 </StackPanel>
                 <TextBlock Name="TableNumerer2"  Grid.Column="2" Text="*/*" FontSize="30" HorizontalAlignment="Center" Foreground="White"/>
             </Grid>
