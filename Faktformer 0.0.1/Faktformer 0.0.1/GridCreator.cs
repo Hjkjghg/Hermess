@@ -52,6 +52,11 @@ namespace Faktformer_0._0._1
         {
             stackPanel.Children.Add(myGrid);
         }
+        public void AppendGridTo(ref Border border)
+        {
+            border.Child = myGrid;
+        }
+
         public Grid GetGrid()
         {
             return myGrid;
@@ -118,10 +123,10 @@ namespace Faktformer_0._0._1
             rowDefinition.Height = height;
             myGrid.RowDefinitions.Add(rowDefinition);
         }
-        public void AddGridRow(double height = 0)
+        public void AddGridRow(double height)
         {
             RowDefinition rowDefinition = new RowDefinition();
-            rowDefinition.Height = (height != 0) ? new GridLength(height) : new GridLength();
+            rowDefinition.Height = new GridLength(height);
             myGrid.RowDefinitions.Add(rowDefinition);
         }
         public void ChangeGridRowHeight(int index, GridLength height)
@@ -138,10 +143,10 @@ namespace Faktformer_0._0._1
             columnDefinition.Width = width;
             myGrid.ColumnDefinitions.Add(columnDefinition);
         }
-        public void AddGridColumn(double width = 0)
+        public void AddGridColumn(double width)
         {
             ColumnDefinition columnDefinition = new ColumnDefinition();
-            columnDefinition.Width = (width != 0) ? new GridLength(width) : new GridLength();
+            columnDefinition.Width = new GridLength(width);
             myGrid.ColumnDefinitions.Add(columnDefinition);
         }
         public void ChangeGridColumnWidth(int index, GridLength width)
@@ -153,10 +158,11 @@ namespace Faktformer_0._0._1
             myGrid.ColumnDefinitions[index].Width = new GridLength(width);
         }
 
-        public void AddLabelToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        public void AddLabelToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, Thickness margin = new Thickness(), double width = 0, double height = 0)
         {
             Label label = new Label();
             label.Name = name;
+            label.Margin = margin;
             if(myGrid.FindName(name) == null)
             {
                 myGrid.UnregisterName(name);
@@ -178,10 +184,11 @@ namespace Faktformer_0._0._1
             label.VerticalAlignment = verticalAlignment;
             myGrid.Children.Add(label);
         }
-        public void AddTextBlockToGrid(string name, string text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        public void AddTextBlockToGrid(string name, string text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, Thickness margin = new Thickness(), double width = 0, double height = 0)
         {
             TextBlock textBlock = new TextBlock();
             textBlock.Name = name;
+            textBlock.Margin = margin; 
             if (myGrid.FindName(name) == null)
             {
                 myGrid.UnregisterName(name);
@@ -201,10 +208,11 @@ namespace Faktformer_0._0._1
             textBlock.HorizontalAlignment = horizontalAlignment;
             textBlock.VerticalAlignment = verticalAlignment;
         }
-        public void AddCheckBoxToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, double width = 0, double height = 0)
+        public void AddCheckBoxToGrid(string name, string content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Top, int row = 0, int column = 0, Thickness margin = new Thickness(), double width = 0, double height = 0)
         {
             CheckBox checkBox = new CheckBox();
             checkBox.Name = name;
+            checkBox.Margin = margin;
             if (myGrid.FindName(name) == null)
             {
                 myGrid.UnregisterName(name);

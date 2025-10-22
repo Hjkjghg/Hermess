@@ -38,6 +38,7 @@ namespace Faktformer_0._0._1
 
         //przechowuje króra karegoria jest wybrana
         private string selectedTable = "Zadania";
+        private int selectedTableIndex;
 
         //zenętrzna zmienna przechoująca ilość rekordów w aktualnie wyświetlanej tabeli, dla urzytku w innych funkcjach
         private int totalTableLength;
@@ -60,13 +61,13 @@ namespace Faktformer_0._0._1
                 switch (selectedTable)
                 {
                     case "Zadania":
-                        CreateMainTable(GetFromDB1());
+                        CreateMainTable(GetFromDB1(), 1);
                         break;
                     case "Historia":
-                        CreateMainTable(GetFromDB2());
+                        CreateMainTable(GetFromDB2(), 1);
                         break;
                     case "Log":
-                        CreateMainTable(GetFromDB3());
+                        CreateMainTable(GetFromDB3(), 1);
                         break;
                 }
                 MainCheckBoxUncheck();
@@ -108,7 +109,7 @@ namespace Faktformer_0._0._1
             int toDisplay = 0;
             for (int i = 0; i < totalTableLength; i++)
             {
-                CheckBox checkBoxTest = (CheckBox)TabPanel.FindName($"tableCheckBox{i}");
+                CheckBox checkBoxTest = (CheckBox)TabPanel.FindName($"table{selectedTableIndex}CheckBox{i}");
                 if(checkBoxTest.IsChecked == true)
                 {
                     selectedCheckBoxes.Add(true);
@@ -125,15 +126,16 @@ namespace Faktformer_0._0._1
         
         //separuje 2-wymiarowy array na wiele 1-wymiarowych i następnie wywołuje funkcje tworzącą rząd dla każdego z nich
         //przyjmuje dane typu string[,]
-        private void CreateMainTable(Tables dataFromDB)
+        private void CreateMainTable(Tables dataFromDB, int selectedTable)
         {
             TabPanel.Children.Clear();
             totalTableLength = dataFromDB.ReturnLenght(0);
+            selectedTableIndex = selectedTable;
 
             for (int j = 0; j < dataFromDB.ReturnLenght(0); j++)
             {
                 List<string> temp1 = ListCaster.CastString(dataFromDB.ReturnRow(j));
-                CreateNewGridAsTableItem(j, temp1);
+                CreateNewGridAsTableItem(j, temp1, selectedTable);
             }
             DisplayTableNumS();
             //P.S. To jest głupie ale włówczas nie mogłem wymyśleć lepszego rozwiązania
@@ -156,83 +158,35 @@ namespace Faktformer_0._0._1
 
         //tworzy nową siatkę, wypełnia ją danymi i wrzuca do stack panelu
         //przyjmuje int, który jest Lp. i id kolumny, oraz string[] który przyjmuje dane do wprowadzenia
-        private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB)
+        private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB, int selectedTable)
         {
             string NameNumber = elementId.ToString();
 
-            //tworzenie bordera tabeli
-            Border myNewBorder = CreateNewBorderWithTemplate($"tableBorder{NameNumber}", ExampleBorder.Height, ExampleBorder.Width, ExampleBorder.VerticalAlignment, ExampleBorder.HorizontalAlignment, ExampleBorder.BorderThickness, ExampleBorder.BorderBrush);
-
-            //tworzenie siatki
-            Grid myNewGrid = CreateNewGridWithTemplate($"tableElement{NameNumber}", ExampleTable.Height, ExampleTable.Width, ExampleTable.VerticalAlignment, ExampleTable.HorizontalAlignment, ExampleTable.ShowGridLines);
-
-            //utworzenie kolumn siatki oraz zdefiniowanie ich długośći i ilości
-            for (int i = 0; i < ExampleTable.ColumnDefinitions.Count; i++)
+            GridCreator gridCreator = new GridCreator();
+            gridCreator.SetGridHeight(ExampleTable.Height);
+            gridCreator.SetGridWidth(ExampleTable.Width);
+            gridCreator.AddGridRow();
+            for(int i = 0; i < ExampleTable.ColumnDefinitions.Count; i++)
             {
-                myNewGrid.ColumnDefinitions.Add(CreateNewColumnDefinitionOfWidth(ExampleTable.ColumnDefinitions[i].Width));
+                gridCreator.AddGridColumn(ExampleTable.ColumnDefinitions[i].Width);
+            }
+            gridCreator.AddCheckBoxToGrid($"table{selectedTable}CheckBox{NameNumber}", "", MainCheckBox.HorizontalAlignment, MainCheckBox.VerticalAlignment, 0, 0, MainCheckBox.Margin);
+            gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
+            for (int i = 0; i < ExampleTable.ColumnDefinitions.Count - 1; i++)
+            {
+                gridCreator.AddTextBlockToGrid($"table{selectedTable}Textbox{NameNumber},{i}", dataFromDB[i], ExampleTextBlock.HorizontalAlignment, ExampleTextBlock.VerticalAlignment, 0, i + 1, ExampleTextBlock.Margin);
             }
 
-            //utworzenie rędu siatki
-            myNewGrid.RowDefinitions.Add(CreateNewRowDefinitionOfHeigth(ExampleTable.RowDefinitions[0].Height));
 
-            //tworzenie checkboxa i ustawienie jego parametrów
-            CheckBox myNewCheckBox = CreateNewCheckBoxWithTemplate($"tableCheckBox{NameNumber}", MainCheckBox.Height, MainCheckBox.Width, MainCheckBox.VerticalAlignment, MainCheckBox.HorizontalAlignment, MainCheckBox.Margin, new RoutedEventHandler(CheckboxCheckedUncheckedE));
-            
-            Grid.SetColumn(myNewCheckBox, 0);
-
-            //tworzenie i rsetowanie nazwy checkboxa dla zautomatyzowanwgo kodu
-            if ((CheckBox)TabPanel.FindName($"tableCheckBox{elementId}") != null) {
-                UnregisterName($"tableCheckBox{elementId}");
-            }
-            RegisterName(myNewCheckBox.Name, myNewCheckBox);
-
-            //alokacja checkboxa do siatki
-            myNewGrid.Children.Add(myNewCheckBox);
-
-            //tworzenie textblocków do wyświetlania danych i ustawienie ich parametrów
-            for (int i = 1; i <= dataFromDB.Count; i++) {
-                TextBlock myNewTextBlock = CreateNewTextBlockWithTemplateNC(dataFromDB[i - 1], ExampleTextBlock.Margin, ExampleTextBlock.Height, ExampleTextBlock.VerticalAlignment, ExampleTextBlock.Foreground);
-                Grid.SetColumn(myNewTextBlock, i);
-
-                //oraz alokacja ich do siatki
-                myNewGrid.Children.Add(myNewTextBlock);
-            }
+            //tworzenie bordera tabeli
+            Border myNewBorder = CreateNewBorderWithTemplate($"table{selectedTable}Border{NameNumber}", ExampleBorder.Height, ExampleBorder.Width, ExampleBorder.VerticalAlignment, ExampleBorder.HorizontalAlignment, ExampleBorder.BorderThickness, ExampleBorder.BorderBrush);
 
             //alokacja siatki do bordera
-            myNewBorder.Child = myNewGrid;
+            gridCreator.AppendGridTo(ref myNewBorder);
 
             //wstwienie bordera z siatką do stackpanela
             TabPanel.Children.Add(myNewBorder);
-        }
-
-        //tworzy i zwraca siatkę według podanych parametrów
-        private Grid CreateNewGridWithTemplate(string name, double height, double width, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment, bool showGridLines)
-        {
-            Grid newGrid = new Grid();
-            newGrid.Height = height;
-            newGrid.Width = width;
-            newGrid.HorizontalAlignment = horizontalAlignment;
-            newGrid.VerticalAlignment = verticalAlignment;
-            newGrid.ShowGridLines = showGridLines;
-            newGrid.Name = name;
-            return newGrid;
-        }
-
-        //tworzy i zwraca kolumne według podanych parametrów
-        private ColumnDefinition CreateNewColumnDefinitionOfWidth(GridLength width)
-        {
-            ColumnDefinition newColumnDefinition = new ColumnDefinition();
-            newColumnDefinition.Width = width;
-            return newColumnDefinition;
-        }
-
-        //tworzy i zwraca rząd według podanych parametrów
-        private RowDefinition CreateNewRowDefinitionOfHeigth(GridLength heigth)
-        {
-            RowDefinition newRowDefinition = new RowDefinition();
-            newRowDefinition.Height = heigth;
-            return newRowDefinition;
-        }
+        } 
 
         //tworzy i zwraca obramowanie według podanych parametrów
         private Border CreateNewBorderWithTemplate(string name, double height, double width, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment, Thickness borderThicknes, Brush borderBrush)
@@ -246,32 +200,6 @@ namespace Faktformer_0._0._1
             newBorder.HorizontalAlignment = horizontalAlignment;
             newBorder.VerticalAlignment = verticalAlignment;
             return newBorder;
-        }
-
-        //tworzy i zwraca checkboxa według podanych parametrów
-        private CheckBox CreateNewCheckBoxWithTemplate(string name, double height, double width, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment, Thickness margin, RoutedEventHandler routedEventHandler)
-        {
-            CheckBox newCheckBox = new CheckBox();
-            newCheckBox.Name = name;
-            newCheckBox.Height = height;
-            newCheckBox.Width = width;
-            newCheckBox.Margin = margin;
-            newCheckBox.VerticalAlignment = verticalAlignment;
-            newCheckBox.HorizontalAlignment = horizontalAlignment;
-            newCheckBox.Click += routedEventHandler;
-            return newCheckBox;
-        }
-
-        //tworz i zwraca checkboxa według podanych parametrów
-        private TextBlock CreateNewTextBlockWithTemplateNC(string text, Thickness margin, double height, VerticalAlignment verticalAlignment, Brush foreground)
-        {
-            TextBlock newTextBlock = new TextBlock();
-            newTextBlock.Margin = margin;
-            newTextBlock.Height = height;
-            newTextBlock.VerticalAlignment = verticalAlignment;
-            newTextBlock.Text = text;
-            newTextBlock.Foreground = foreground;
-            return newTextBlock;
         }
 
 
