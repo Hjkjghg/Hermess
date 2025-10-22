@@ -28,6 +28,8 @@ namespace Faktformer_0._0._1
             if (CzyZalogowanoJuz())
             {
                 logedIn = true;
+                LoadAllTables();
+                SwichTabs();
                 //wbij dane
             }
             else
@@ -64,20 +66,56 @@ namespace Faktformer_0._0._1
                         CreateMainTable(GetFromDB1(), 1);
                         break;
                     case "Historia":
-                        CreateMainTable(GetFromDB2(), 1);
+                        CreateMainTable(GetFromDB2(), 2);
                         break;
                     case "Log":
-                        CreateMainTable(GetFromDB3(), 1);
+                        CreateMainTable(GetFromDB3(), 3);
+                        break;
+                }
+                MainCheckBoxUncheck();
+            }
+        }
+        private void LoadAllTables()
+        {
+            if (logedIn)
+            {
+                CreateMainTable(GetFromDB1(), 1);
+                CreateMainTable(GetFromDB2(), 2);
+                CreateMainTable(GetFromDB3(), 3);
+            }
+        }
+
+        private void SwichTabs(string tab = "Zadania")
+        {
+            if (logedIn)
+            {
+                switch (selectedTable)
+                {
+                    case "Zadania":
+                        GridSettings.EnableDisabelGrid(ref Zadania, true);
+                        GridSettings.EnableDisabelGrid(ref Historia, false);
+                        GridSettings.EnableDisabelGrid(ref Log, false);
+                        break;
+                    case "Historia":
+                        GridSettings.EnableDisabelGrid(ref Zadania, false);
+                        GridSettings.EnableDisabelGrid(ref Historia, true);
+                        GridSettings.EnableDisabelGrid(ref Log, false);
+                        break;
+                    case "Log":
+                        GridSettings.EnableDisabelGrid(ref Zadania, false);
+                        GridSettings.EnableDisabelGrid(ref Historia, false);
+                        GridSettings.EnableDisabelGrid(ref Log, true);
                         break;
                 }
                 MainCheckBoxUncheck();
             }
         }
 
+
         //wprowadza wizualną zawartość tabeli po jej załadowaniu
         private void TableMain_Loaded(object sender, RoutedEventArgs e)
         {
-            selectFromCorrectDBToTable();
+            //selectFromCorrectDBToTable();
         }
 
         //jeśli checkbox główny został zaznaczony bądź odznaczony, adekwatnie zareagój resztą checkboxów
@@ -87,8 +125,8 @@ namespace Faktformer_0._0._1
             for(int i = 0; i < totalTableLength; i++)
             {
                 string checkBoxName = $"table{selectedTableIndex}CheckBox{i}";
-                CheckBox checkBoxByName = (CheckBox)TabPanel.FindName(checkBoxName);
-                checkBoxByName.IsChecked = MainCheckBox.IsChecked;
+                CheckBox checkBoxByName = (CheckBox)this.FindName(checkBoxName);
+                checkBoxByName.IsChecked = ((CheckBox)this.FindName($"MainCheckBox{selectedTableIndex.ToString()}")).IsChecked;
             }
             WhatChecked();
         }
@@ -109,7 +147,7 @@ namespace Faktformer_0._0._1
             int toDisplay = 0;
             for (int i = 0; i < totalTableLength; i++)
             {
-                CheckBox checkBoxTest = (CheckBox)TabPanel.FindName($"table{selectedTableIndex}CheckBox{i}");
+                CheckBox checkBoxTest = (CheckBox)(this.FindName($"table{selectedTableIndex}CheckBox{i}"));
                 if(checkBoxTest.IsChecked == true)
                 {
                     selectedCheckBoxes.Add(true);
@@ -126,16 +164,16 @@ namespace Faktformer_0._0._1
         
         //separuje 2-wymiarowy array na wiele 1-wymiarowych i następnie wywołuje funkcje tworzącą rząd dla każdego z nich
         //przyjmuje dane typu string[,]
-        private void CreateMainTable(Tables dataFromDB, int selectedTable)
+        private void CreateMainTable(Tables dataFromDB, int selectedTableInt)
         {
-            TabPanel.Children.Clear();
+            ((StackPanel)this.FindName($"TabPanel{selectedTableInt.ToString()}")).Children.Clear();
             totalTableLength = dataFromDB.ReturnLenght(0);
-            selectedTableIndex = selectedTable;
+            selectedTableIndex = selectedTableInt;
 
             for (int j = 0; j < dataFromDB.ReturnLenght(0); j++)
             {
                 List<string> temp1 = ListCaster.CastString(dataFromDB.ReturnRow(j));
-                CreateNewGridAsTableItem(j, temp1, selectedTable);
+                CreateNewGridAsTableItem(j, temp1, selectedTableInt);
             }
             DisplayTableNumS();
             //P.S. To jest głupie ale włówczas nie mogłem wymyśleć lepszego rozwiązania
@@ -146,14 +184,14 @@ namespace Faktformer_0._0._1
         //jeśli liczb zaznaczonych rekordów to zero, bądź nie jest podana, to wyświetla */ilość_rekordów
         private void DisplayTableNumS(int recordnum = 0)
         {
-            TableNumerer.Text = (recordnum != 0) ? recordnum.ToString() + "/" + totalTableLength.ToString() : TableNumerer.Text = "*/" + totalTableLength.ToString();
+            ((TextBlock)this.FindName($"TableNumerer{selectedTableIndex.ToString()}")).Text = (recordnum != 0) ? recordnum.ToString() + "/" + totalTableLength.ToString() : "*/" + totalTableLength.ToString();
         }
 
         //odzaznacza głowny checkbox
         //jest urzywana w przypadku odświerzenia tabeli, bądź gdy jeden pub więcej podrzędnych checkboxów zostanie odznaczonych
         private void MainCheckBoxUncheck()
         {
-            MainCheckBox.IsChecked = false;            
+            ((CheckBox)this.FindName($"MainCheckBox{selectedTableIndex.ToString()}")).IsChecked = false;            
         }
 
         //tworzy nową siatkę, wypełnia ją danymi i wrzuca do stack panelu
@@ -162,32 +200,36 @@ namespace Faktformer_0._0._1
         {
             string NameNumber = elementId.ToString();
             string sTNumber = selectedTable.ToString();
+            Grid exampleTable = (Grid)this.FindName($"ExampleTable{sTNumber}");
+            Border exampleBorder = (Border)this.FindName($"ExampleBorder{sTNumber}");
+            CheckBox mainCheckBox = (CheckBox)this.FindName($"MainCheckBox{sTNumber}");
+            TextBlock exampleTextBlock = (TextBlock)this.FindName($"ExampleTextBlock{sTNumber}");
+            StackPanel tabPanel = (StackPanel)this.FindName($"TabPanel{sTNumber}");
 
             GridCreator gridCreator = new GridCreator(this);
-            gridCreator.SetGridHeight(ExampleTable.Height);
-            gridCreator.SetGridWidth(ExampleTable.Width);
+            gridCreator.SetGridHeight(exampleTable.Height);
+            gridCreator.SetGridWidth(exampleTable.Width);
             gridCreator.ToggleGridsGridLines();
             gridCreator.AddGridRow();
-            for(int i = 0; i < ExampleTable.ColumnDefinitions.Count; i++)
+            for(int i = 0; i < exampleTable.ColumnDefinitions.Count; i++)
             {
-                gridCreator.AddGridColumn(ExampleTable.ColumnDefinitions[i].Width);
+                gridCreator.AddGridColumn(exampleTable.ColumnDefinitions[i].Width);
             }
-            gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", MainCheckBox.HorizontalAlignment, MainCheckBox.VerticalAlignment, 0, 0, MainCheckBox.Margin);
+            gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", mainCheckBox.HorizontalAlignment, mainCheckBox.VerticalAlignment, 0, 0, mainCheckBox.Margin);
             gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
-            for (int i = 0; i < ExampleTable.ColumnDefinitions.Count - 1; i++)
+            for (int i = 0; i < exampleTable.ColumnDefinitions.Count - 1; i++)
             {
-                gridCreator.AddTextBlockToGrid($"table{sTNumber}Textbox{NameNumber}U{i.ToString()}", dataFromDB[i], ExampleTextBlock.HorizontalAlignment, ExampleTextBlock.VerticalAlignment, 0, i + 1, ExampleTextBlock.Margin);
+                gridCreator.AddTextBlockToGrid($"table{sTNumber}Textbox{NameNumber}U{i.ToString()}", dataFromDB[i], exampleTextBlock.HorizontalAlignment, exampleTextBlock.VerticalAlignment, 0, i + 1, exampleTextBlock.Margin);
             }
-
 
             //tworzenie bordera tabeli
-            Border myNewBorder = CreateNewBorderWithTemplate($"table{sTNumber}Border{NameNumber}", ExampleBorder.Height, ExampleBorder.Width, ExampleBorder.VerticalAlignment, ExampleBorder.HorizontalAlignment, ExampleBorder.BorderThickness, ExampleBorder.BorderBrush);
+            Border myNewBorder = CreateNewBorderWithTemplate($"table{sTNumber}Border{NameNumber}", exampleBorder.Height, exampleBorder.Width, exampleBorder.VerticalAlignment, exampleBorder.HorizontalAlignment, exampleBorder.BorderThickness, exampleBorder.BorderBrush);
 
             //alokacja siatki do bordera
             gridCreator.AppendGridTo(ref myNewBorder);
 
             //wstwienie bordera z siatką do stackpanela
-            TabPanel.Children.Add(myNewBorder);
+            tabPanel.Children.Add(myNewBorder);
         } 
 
         //tworzy i zwraca obramowanie według podanych parametrów
@@ -236,19 +278,19 @@ namespace Faktformer_0._0._1
         private void ButtonTabZadania_Click(object sender, RoutedEventArgs e)
         {
             selectedTable = "Zadania";
-            selectFromCorrectDBToTable();
+            SwichTabs("Zadania");
         }
         //przejście do tab2
         private void ButtonTabHistoria_Click(object sender, RoutedEventArgs e)
         {
             selectedTable = "Historia";
-            selectFromCorrectDBToTable();
+            SwichTabs("Historia");
         }
         //przejście do tab3
         private void ButtonTabLog_Click(object sender, RoutedEventArgs e)
         {
             selectedTable = "Log";
-            selectFromCorrectDBToTable();
+            SwichTabs("Log");
         }
         //Uruchomienie okna dialogowego tworzenia nowego zadania
         private void ButtonNoweZadanie_Click(object sender, RoutedEventArgs e)
@@ -340,6 +382,8 @@ namespace Faktformer_0._0._1
             {
                 logedIn = true;
                 //wbij dane
+                LoadAllTables();
+                SwichTabs();
                 mWindow.Visibility = Visibility.Visible;
                 mWindow.ShowInTaskbar = true;
                 return 0;

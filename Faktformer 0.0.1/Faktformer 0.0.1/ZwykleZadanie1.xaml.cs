@@ -233,30 +233,22 @@ namespace Faktformer_0._0._1
             switch (gridName)
             {
                 case "Parametry":
-                    EnableDisabelGrid(ref Parametry, true);
-                    EnableDisabelGrid(ref Kontrahenci, false);
-                    EnableDisabelGrid(ref PozycjeDokumentu, false);
+                    GridSettings.EnableDisabelGrid(ref Parametry, true);
+                    GridSettings.EnableDisabelGrid(ref Kontrahenci, false);
+                    GridSettings.EnableDisabelGrid(ref PozycjeDokumentu, false);
                     break;
                 case "Kontrahenci":
-                    EnableDisabelGrid(ref Kontrahenci, true);
-                    EnableDisabelGrid(ref Parametry, false);
-                    EnableDisabelGrid(ref PozycjeDokumentu, false);
+                    GridSettings.EnableDisabelGrid(ref Kontrahenci, true);
+                    GridSettings.EnableDisabelGrid(ref Parametry, false);
+                    GridSettings.EnableDisabelGrid(ref PozycjeDokumentu, false);
                     CreateTableKON(GetFromDB1());
                     break;
                 case "PozycjeDokumentu":
-                    EnableDisabelGrid(ref PozycjeDokumentu, true);
-                    EnableDisabelGrid(ref Parametry, false);
-                    EnableDisabelGrid(ref Kontrahenci, false);
+                    GridSettings.EnableDisabelGrid(ref PozycjeDokumentu, true);
+                    GridSettings.EnableDisabelGrid(ref Parametry, false);
+                    GridSettings.EnableDisabelGrid(ref Kontrahenci, false);
                     break;
             }
-        }
-
-        //włącza i wyłącza siatkę
-        private void EnableDisabelGrid(ref Grid siatka, bool enabled)
-        {
-            siatka.Visibility = enabled ? Visibility.Visible : Visibility.Hidden;
-            siatka.IsEnabled = enabled;
-            Panel.SetZIndex(siatka, enabled ? 1 : -1);
         }
 
         //Tworzy tabele kontrahentów

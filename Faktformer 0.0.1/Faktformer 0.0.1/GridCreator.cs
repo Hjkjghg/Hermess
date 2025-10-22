@@ -309,4 +309,14 @@ namespace Faktformer_0._0._1
             throw new NotImplementedException();
         }
     }
+
+    public class GridSettings
+    {
+        public static void EnableDisabelGrid(ref Grid siatka, bool enabled)
+        {
+            siatka.Visibility = enabled ? Visibility.Visible : Visibility.Hidden;
+            siatka.IsEnabled = enabled;
+            Panel.SetZIndex(siatka, enabled ? 1 : -1);
+        }
+    }
 }
