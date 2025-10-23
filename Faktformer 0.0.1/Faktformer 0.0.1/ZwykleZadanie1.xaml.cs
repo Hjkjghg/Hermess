@@ -269,28 +269,17 @@ namespace Faktformer_0._0._1
         //przyjmuje int, który jest Lp. i id kolumny, oraz string[] który przyjmuje dane do wprowadzenia
         private void CreateNewGridAsTableItemKON(int elementId,List<string> dataFromDB)
         {
-            ListViewItem myNewItem = CreateNewListViewItem($"ListItem{elementId}", HorizontalAlignment.Stretch);
-            //GridCreator gridCreator = new GridCreator(this);
-            //gridCreator.SetGridWidth(KONGridExample.Width);
-            //gridCreator.AddGridRow();
-            //for (int i = 0; i < KONGridExample.ColumnDefinitions.Count; i++)
-            //{
-            //    gridCreator.AddGridColumn(KONGridExample.ColumnDefinitions[i].Width);
-            //}
-            //gridCreator.AddTextBlockToGrid($"TextBlock{}", dataFromDB[i]);
-
-            Grid myNewGrid = CreateNewGrid(KONGridExample.ShowGridLines, KONGridExample.HorizontalAlignment, KONGridExample.Width);
-            for (int i = 0; i < dataFromDB.Count; i++)
+            ListViewItem myNewItem = CreateNewListViewItem($"ListItem{elementId.ToString()}", HorizontalAlignment.Stretch);
+            GridCreator gridCreator = new GridCreator(this);
+            gridCreator.ToggleGridsGridLines();
+            gridCreator.SetGridWidth(KONGridExample.Width);
+            gridCreator.AddGridRow();
+            for (int i = 0; i < KONGridExample.ColumnDefinitions.Count; i++)
             {
-                ColumnDefinition myNewColumnDefinition = CreateNewColumnDefinition(((ColumnDefinition)KONGridExample.FindName($"ExampleColumnDefinition{i + 1}")).Width);
-                myNewGrid.ColumnDefinitions.Add(myNewColumnDefinition);
+                gridCreator.AddGridColumn(KONGridExample.ColumnDefinitions[i].Width);
+                gridCreator.AddTextBlockToGrid($"ListItem{elementId.ToString()}TextBlock{i.ToString()}", dataFromDB[i], ExampleTextBlockKON.HorizontalAlignment, ExampleTextBlockKON.VerticalAlignment, 0, i, ExampleTextBlockKON.Margin);
             }
-            for (int i = 0; i < dataFromDB.Count; i++) {
-                Label myNewLabel = CreateNewLabel(dataFromDB[i]);
-                Grid.SetColumn(myNewLabel, i);
-                myNewGrid.Children.Add(myNewLabel);
-            }
-            myNewItem.Content = myNewGrid;
+            myNewItem.Content = gridCreator.GetGrid();
             ListViewKontrahenciZZ1.Items.Add(myNewItem);
         }
 
