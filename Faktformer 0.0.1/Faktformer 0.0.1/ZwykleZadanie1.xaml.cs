@@ -292,32 +292,6 @@ namespace Faktformer_0._0._1
             return newItem;
         }
 
-        //tworzy i zwraca siatkę według parametrów
-        private Grid CreateNewGrid(bool showGridLines, HorizontalAlignment horizontalAlignment, double width)
-        {
-            Grid newGrid = new Grid();
-            newGrid.ShowGridLines = showGridLines;
-            newGrid.HorizontalAlignment = horizontalAlignment;
-            newGrid.Width = width;
-            return newGrid;
-        }
-
-        //tworzy i zwraca kolumne wedłud parametrów
-        private ColumnDefinition CreateNewColumnDefinition(GridLength width)
-        {
-            ColumnDefinition newColumnDefinition = new ColumnDefinition();
-            newColumnDefinition.Width = width;
-            return newColumnDefinition;
-        }
-
-        //tworzy i zwraca labela według parametrów
-        private Label CreateNewLabel(string content)
-        {
-            Label newLabel = new Label();
-            newLabel.Content = content;
-            return newLabel;
-        }
-
         //tu wsadź funkcje pobierającą dane z tabeli
         private Tables GetFromDB1()
         {
