@@ -27,6 +27,8 @@
                 <wpfTool:DoubleUpDown x:Name="NumBoxLiczbaCzasu" Width="60" Margin="0, 0, 4, 0" DefaultValue="1" DisplayDefaultValueOnEmptyText="True" ParsingNumberStyle="Integer"/>
                 <ComboBox Width="50" SelectedIndex="0">
                     <ComboBoxItem Content="dni"/>
+                    <ComboBoxItem Content="tygodni"/>
+                    <ComboBoxItem Content="miesięcy"/>
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="25">

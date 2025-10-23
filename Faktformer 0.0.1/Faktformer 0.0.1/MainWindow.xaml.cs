@@ -333,7 +333,8 @@ namespace Faktformer_0._0._1
                     
                     break;
                 case "ZwykleZadanie":
-                    ZwykleZadanie1 zwykleZadanie1 = new ZwykleZadanie1();
+                    //pobierz listy z bazy danych
+                    ZwykleZadanie1 zwykleZadanie1 = new ZwykleZadanie1(new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>());
                     zwykleZadanie1.ShowDialog();
                     if (zwykleZadanie1.succes)
                     {
@@ -341,7 +342,8 @@ namespace Faktformer_0._0._1
                     }
                     break;
                 case "BazaDanych":
-                    BazaDanych1 bazaDanych1 = new BazaDanych1();
+                    //pobierz listy z bazy danych
+                    BazaDanych1 bazaDanych1 = new BazaDanych1(new List<string>(), new List<string>());
                     bazaDanych1.ShowDialog();
                     if (bazaDanych1.succes)
                     {
@@ -349,7 +351,8 @@ namespace Faktformer_0._0._1
                     }
                     break;
                 case "Email":
-                    Email1 email1 = new Email1();
+                    //pobierz listy z bazy danych
+                    Email1 email1 = new Email1(new List<string>());
                     email1.ShowDialog();
                     if (email1.succes)
                     {
@@ -357,7 +360,8 @@ namespace Faktformer_0._0._1
                     }
                     break;
                 case "ParametryPracy":
-                    ParametryPracy1 parametryPracy1 = new ParametryPracy1();
+                    //pobierz listy z bazy danych
+                    ParametryPracy1 parametryPracy1 = new ParametryPracy1(new List<string>());
                     parametryPracy1.ShowDialog();
                     if (parametryPracy1.succes)
                     {
@@ -365,7 +369,8 @@ namespace Faktformer_0._0._1
                     }
                     break;
                 case "PowielaczDokumentow":
-                    PowielaczDokumentow powielaczDokumentow = new PowielaczDokumentow();
+                    //pobierz listy z bazy danych
+                    PowielaczDokumentow powielaczDokumentow = new PowielaczDokumentow(new List<string>(), new List<string>());
                     powielaczDokumentow.ShowDialog();
                     if (powielaczDokumentow.succes)
                     {
@@ -373,7 +378,8 @@ namespace Faktformer_0._0._1
                     }
                     break;
                 case "ReailzatorZamowien":
-                    RealizatorZamowien realizatorZamowien = new RealizatorZamowien();
+                    //pobierz listy z bazy danych
+                    RealizatorZamowien realizatorZamowien = new RealizatorZamowien(new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>());
                     realizatorZamowien.ShowDialog();
                     if (realizatorZamowien.succes)
                     {

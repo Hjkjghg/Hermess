@@ -22,9 +22,11 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class PowielaczDokumentow : Window
     {
-        public PowielaczDokumentow()
+        public PowielaczDokumentow(List<string> magazyny, List<string> rodzaje)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(magazyny, ref ComboBoxMagazyn);
+            ItemCreator.SetComboBoxItems(rodzaje, ref ComboBoxRodzaj);
         }
 
         public bool succes { get; set; } = false;

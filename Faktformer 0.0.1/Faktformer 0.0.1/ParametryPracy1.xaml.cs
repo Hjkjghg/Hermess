@@ -19,9 +19,10 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class ParametryPracy1 : Window
     {
-        public ParametryPracy1()
+        public ParametryPracy1(List<string> przeliczajWedlug)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(przeliczajWedlug, ref ComboBoxCena);
         }
 
         //zmienne wyjśćiowe

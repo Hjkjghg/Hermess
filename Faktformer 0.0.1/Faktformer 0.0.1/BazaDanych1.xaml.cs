@@ -19,9 +19,11 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class BazaDanych1 : Window
     {
-        public BazaDanych1()
+        public BazaDanych1(List<string> podmiots, List<string> users)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(podmiots, ref ComboBoxPodmiot);
+            ItemCreator.SetComboBoxItems(users, ref ComboBoxUser);
         }
 
         //zmienne wyjściowe

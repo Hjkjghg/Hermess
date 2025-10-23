@@ -22,7 +22,6 @@ namespace Faktformer_0._0._1
         public ProfilSelector1()
         {
             InitializeComponent();
-            
         }
 
         private List<string> profile = new List<string>();

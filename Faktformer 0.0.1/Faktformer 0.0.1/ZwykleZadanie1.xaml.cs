@@ -21,9 +21,16 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class ZwykleZadanie1 : Window
     {
-        public ZwykleZadanie1()
+        public ZwykleZadanie1(List<string> magazyny, List<string> rodzaje, List<string> waluty, List<string> platnosci, List<string> terminy, List<string> statusy, List<string> kategoria)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(magazyny, ref ComboBoxMagazyn);
+            ItemCreator.SetComboBoxItems(rodzaje, ref ComboBoxRodzajFaktura);
+            ItemCreator.SetComboBoxItems(waluty, ref ComboBoxWaluta);
+            ItemCreator.SetComboBoxItems(platnosci, ref ComboBoxPlatnosc);
+            ItemCreator.SetComboBoxItems(terminy, ref ComboBoxTermin);
+            ItemCreator.SetComboBoxItems(statusy, ref ComboBoxStatus);
+            ItemCreator.SetComboBoxItems(kategoria, ref ComboBoxKategoria);
         }
 
         //zmienne wyjściowe

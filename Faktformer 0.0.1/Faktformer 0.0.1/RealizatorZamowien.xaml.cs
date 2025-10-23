@@ -21,9 +21,19 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class RealizatorZamowien : Window
     {
-        public RealizatorZamowien()
+        public RealizatorZamowien(List<string> magazyny, List<string> rodzaje, List<string> waluty, List<string> platnosci, List<string> terminy, List<string> statusy, List<string> kategoria, List<string> grupaKontrahentow, List<string> flagiWlasne, List<string> cechaKontrahentow)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(magazyny, ref ComboBoxMagazyn);
+            ItemCreator.SetComboBoxItems(rodzaje, ref ComboBoxRodzajFaktura);
+            ItemCreator.SetComboBoxItems(waluty, ref ComboBoxWaluta);
+            ItemCreator.SetComboBoxItems(platnosci, ref ComboBoxPlatnosc);
+            ItemCreator.SetComboBoxItems(terminy, ref ComboBoxTermin);
+            ItemCreator.SetComboBoxItems(statusy, ref ComboBoxStatus);
+            ItemCreator.SetComboBoxItems(kategoria, ref ComboBoxKategoria);
+            ItemCreator.SetComboBoxItems(grupaKontrahentow, ref ComboBoxGrupaKontrahent);
+            ItemCreator.SetComboBoxItems(flagiWlasne, ref ComboBoxFlagaWlasna);
+            ItemCreator.SetComboBoxItems(cechaKontrahentow, ref ComboBoxCechaKontrahent);
         }
 
 

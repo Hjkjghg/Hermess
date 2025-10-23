@@ -19,9 +19,10 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class Email1 : Window
     {
-        public Email1()
+        public Email1(List<string> porty)
         {
             InitializeComponent();
+            ItemCreator.SetComboBoxItems(porty, ref ComboBoxPortEamil1);
         }
 
         //zmienne wyjściowe
