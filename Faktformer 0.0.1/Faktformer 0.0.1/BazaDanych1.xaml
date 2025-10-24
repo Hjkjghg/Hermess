@@ -70,7 +70,7 @@
                         <Label Content="Hasło" HorizontalAlignment="Left" Grid.Column="0" Foreground="White"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <PasswordBox Name="PasswordBoxSubiekt" HorizontalAlignment="Right"  Width="118" Margin="0, 0, 2, 0"/>
-                            <Button Content="Sprawdź połączenie" Width="118" Margin="2, 0, 0, 0"/>
+                            <Button Content="Sprawdź połączenie" Width="118" Margin="2, 0, 0, 0" Click="ButtonSprawdzPolanczenie_Click"/>
                         </StackPanel>
 
                     </Grid>

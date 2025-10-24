@@ -29,11 +29,13 @@ namespace Faktformer_0._0._1
         private List<string> user = new List<string>();
         private bool progresingAppOnclosing = false;
 
+        //wyłącza aplikacje
         private void ButtonQuit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
+        //próbuje zalogować
         private void ButtonLogIn_Click(object sender, RoutedEventArgs e)
         {
             int b =((MainWindow)System.Windows.Application.Current.MainWindow).TryLogin();
@@ -44,11 +46,12 @@ namespace Faktformer_0._0._1
                     Close();
                     break;
                 case 1:
-                    MessageBox.Show("Niepoprawne dane");
+                    MessageBox.Show("Niepoprawne dane", "Błąd logowania");
                     break;
             }
         }
 
+        //Upewnia się, że podczas zamknięcia okna aplikacja też się zamknie
         private void ProfilSelector1_Closed(object sender, EventArgs e)
         {
             if (!progresingAppOnclosing)
@@ -58,6 +61,7 @@ namespace Faktformer_0._0._1
             
         }
 
+        //Załadowuje dane z głównego okna
         private void ProfilSelector_Loaded(object sender, RoutedEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).PobierzDaneZ(out profile, out podmiot, out user);
@@ -68,6 +72,7 @@ namespace Faktformer_0._0._1
             User.SelectedIndex = 0;
         }
 
+        //pozwala na pzrenoszenie okna
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

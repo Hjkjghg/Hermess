@@ -19,7 +19,7 @@ namespace Faktformer_0._0._1
     {
         public static Color HexToColor(string hexColor)
         {
-            //Remove # if present
+            //usuwa # jeśli obecny
             if (hexColor.IndexOf('#') != -1)
                 hexColor = hexColor.Replace("#", "");
 

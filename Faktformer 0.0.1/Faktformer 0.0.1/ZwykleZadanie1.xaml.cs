@@ -21,6 +21,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class ZwykleZadanie1 : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public ZwykleZadanie1(List<string> magazyny, List<string> rodzaje, List<string> waluty, List<string> platnosci, List<string> terminy, List<string> statusy, List<string> kategoria)
         {
             InitializeComponent();
@@ -177,7 +178,7 @@ namespace Faktformer_0._0._1
             //w przypadku gdy jeden z plików nie iintnieje, pokaż messagebox błąd
             else
             {
-                MessageBox.Show("Jeden lub więcej z podanych ścierzek nie istnieje", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Jedna lub więcej z podanych ścierzek nie istnieje", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

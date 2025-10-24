@@ -21,6 +21,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class RealizatorZamowien : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public RealizatorZamowien(List<string> magazyny, List<string> rodzaje, List<string> waluty, List<string> platnosci, List<string> terminy, List<string> statusy, List<string> kategoria, List<string> grupaKontrahentow, List<string> flagiWlasne, List<string> cechaKontrahentow)
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace Faktformer_0._0._1
             ItemCreator.SetComboBoxItems(flagiWlasne, ref ComboBoxFlagaWlasna);
             ItemCreator.SetComboBoxItems(cechaKontrahentow, ref ComboBoxCechaKontrahent);
         }
-
+        //zmienne wyjściowe
 
         public string name { get; set; }
         public string description { get; set; }
@@ -73,14 +74,17 @@ namespace Faktformer_0._0._1
 
         public bool succes { get; set; } = false;
 
+        //zamyka okno
         private void ButtonAnuluj_Click(object sender, RoutedEventArgs e)
         {
             succes = false;
             Close();
         }
 
+        //przekazuje dane do okna głównego
         private void ButtonZapisz_Click(object sender, RoutedEventArgs e)
         {
+            //sprawdza czy wybrana ścieżka istnieje
             succes = true;
             if (CheckBoxZapiszWydruki.IsChecked == true)
             {
@@ -121,13 +125,19 @@ namespace Faktformer_0._0._1
                 descriptonContains = TextBoxOpisZawiera.Text;
                 Close();
             }
+            else
+            {
+                MessageBox.Show("Podana ścieżka nie istnieje", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        //włącza/wyłącza DataPickera zależnie od CheckBoxa
         private void CheckBoxDate_Click(object sender, RoutedEventArgs e)
         {
             DatePickerDo.IsEnabled = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
         }
 
+        //włącza/wyłacza FileDialog Button i TextBox zależnie od CheckBoxa
         private void CheckBoxZapiszWydruki_Click(object sender, RoutedEventArgs e)
         {
             if (CheckBoxZapiszWydruki.IsChecked == true)

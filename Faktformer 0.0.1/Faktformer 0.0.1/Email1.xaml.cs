@@ -19,6 +19,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class Email1 : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public Email1(List<string> porty)
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace Faktformer_0._0._1
 
         //przycisk zapisz
         //wczytuje dane z okna do danych wyjśćiowych i zamyka okno
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonZapisz_Click(object sender, RoutedEventArgs e)
         {
             //sprawdza czy port jest liczbą
             if (int.TryParse(TextBoxPortEmail1.Text, out int tempPortNmber))
@@ -67,14 +68,14 @@ namespace Faktformer_0._0._1
 
         //guzik anuluj
         //zamyka okno
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonAnuluj_Click(object sender, RoutedEventArgs e)
         {
             succes = false;
             Close();
         }
 
         //prycisk wyśij mail testowy
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ButtonWyślijMaila_Click(object sender, RoutedEventArgs e)
         {
             //tu wprowadź kod wysyłający maila
         }

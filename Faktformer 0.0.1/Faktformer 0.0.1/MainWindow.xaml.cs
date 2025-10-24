@@ -75,6 +75,8 @@ namespace Faktformer_0._0._1
                 MainCheckBoxUncheck();
             }
         }
+
+        //ładuje zawartość wszystkich tabel
         private void LoadAllTables()
         {
             if (logedIn)
@@ -86,6 +88,7 @@ namespace Faktformer_0._0._1
             }
         }
 
+        //frontuje odpowiednią siatkę zależnie od wybranej
         private void SwichTabs(string tab = "Zadania")
         {
             if (logedIn)
@@ -146,7 +149,7 @@ namespace Faktformer_0._0._1
 
         //sprawdza które checkboxy w tabeli zostały zaznaczone, updatuje ilość znaczonych rekordów na numeratorze
         //zwraca array tupu bool[], przechowujący które rekordy zostały zaznaczone
-        //UWAGA! jeśli tabla nie istnieje, bądź nie ma elemantów, zawsze zwróci array wypełniony false
+        //UWAGA! jeśli tabela nie istnieje, bądź nie ma elemantów, zawsze zwróci array wypełniony false
         private List<bool> WhatChecked() 
         {
             List<bool> selectedCheckBoxes = new List<bool>();
@@ -211,6 +214,7 @@ namespace Faktformer_0._0._1
         //przyjmuje int, który jest Lp. i id kolumny, oraz string[] który przyjmuje dane do wprowadzenia
         private void CreateNewGridAsTableItem(int elementId, List<string> dataFromDB, int selectedTable, bool checkboxed)
         {
+            //pobiera przykładowe elementy(ustawia formatowanie jak dla nagłówka)
             string NameNumber = elementId.ToString();
             string sTNumber = selectedTable.ToString();
             Grid exampleTable = (Grid)this.FindName($"ExampleTable{sTNumber}");
@@ -218,7 +222,7 @@ namespace Faktformer_0._0._1
             CheckBox mainCheckBox = (CheckBox)this.FindName($"MainCheckBox{sTNumber}");
             TextBlock exampleTextBlock = (TextBlock)this.FindName($"ExampleTextBlock{sTNumber}");
             StackPanel tabPanel = (StackPanel)this.FindName($"TabPanel{sTNumber}");
-
+            //tworzenie siatki
             GridCreator gridCreator = new GridCreator(this);
             gridCreator.SetGridHeight(exampleTable.Height);
             gridCreator.SetGridWidth(exampleTable.Width);
@@ -228,14 +232,15 @@ namespace Faktformer_0._0._1
             {
                 gridCreator.AddGridColumn(exampleTable.ColumnDefinitions[i].Width);
             }
+            //sprawdza czy tabela powinna mieć CheckBoxa w pierwsze kolumnie i jeśli tak to go dodaje do siatki
             int skipBox = 0;
             if (checkboxed)
             {
                 gridCreator.AddCheckBoxToGrid($"table{sTNumber}CheckBox{NameNumber}", "", mainCheckBox.HorizontalAlignment, mainCheckBox.VerticalAlignment, 0, 0, mainCheckBox.Margin);
-                gridCreator.AddEventListenerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
+                gridCreator.AddEventHandlerToElementByName(new RoutedEventHandler(CheckboxCheckedUncheckedE), $"table{selectedTable}CheckBox{NameNumber}", GridCreator.eventType.Click);
                 skipBox = 1;
             }
-            
+            //dodaje TextBlocki do siatki
             for (int i = 0; i < exampleTable.ColumnDefinitions.Count - skipBox; i++)
             {
                 gridCreator.AddTextBlockToGrid($"table{sTNumber}Textbox{NameNumber}U{i.ToString()}", dataFromDB[i], exampleTextBlock.HorizontalAlignment, exampleTextBlock.VerticalAlignment, 0, i + 1, exampleTextBlock.Margin);
@@ -397,7 +402,7 @@ namespace Faktformer_0._0._1
         }
 
 
-        //niegotowe, ale nie mam pojęcia jak ma się integrować z subiektem GT
+        //***niegotowe, ale nie mam pojęcia jak ma się integrować z subiektem GT
         //funkcja wywoływana z okna logowania, próbuje się połączyć z subiektem GT(lub naszym serwerem)
         public int TryLogin()
         {
@@ -419,6 +424,7 @@ namespace Faktformer_0._0._1
             }                            
         }
 
+        //wylogowuje
         public void LogOut()
         {
             logedIn = false;
@@ -451,11 +457,13 @@ namespace Faktformer_0._0._1
             return true;
         }
 
+        //otwiera powielacz dokumentów
         private void ButtonPowielDokumenty_Click(object sender, RoutedEventArgs e)
         {
             OpenWindow("PowielaczDokumentow");
         }
 
+        //otwiera realizator zamówień
         private void ButtonRealizojZamowienie_Click(object sender, RoutedEventArgs e)
         {
             OpenWindow("ReailzatorZamowien");

@@ -19,6 +19,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class BazaDanych1 : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public BazaDanych1(List<string> podmiots, List<string> users)
         {
             InitializeComponent();
@@ -60,6 +61,12 @@ namespace Faktformer_0._0._1
             indexOfSubiekt = ComboBoxUser.SelectedIndex;
             subiektPassword = PasswordBoxSubiekt.Password;
             Close();
+        }
+
+        //sprawdza połączenie z bazą danych
+        private void ButtonSprawdzPolanczenie_Click(object sender, RoutedEventArgs e)
+        {
+            //wsaw kod sprawdzający połączenie
         }
     }
 }
