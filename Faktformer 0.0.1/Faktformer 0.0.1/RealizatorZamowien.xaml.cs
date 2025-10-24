@@ -125,6 +125,7 @@ namespace Faktformer_0._0._1
                 descriptonContains = TextBoxOpisZawiera.Text;
                 Close();
             }
+            //w przypadku gdy jeden z plików nie iintnieje, pokaż messagebox błąd
             else
             {
                 MessageBox.Show("Podana ścieżka nie istnieje", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
