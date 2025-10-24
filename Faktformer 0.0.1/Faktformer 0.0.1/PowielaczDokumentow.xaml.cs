@@ -22,6 +22,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class PowielaczDokumentow : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public PowielaczDokumentow(List<string> magazyny, List<string> rodzaje)
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace Faktformer_0._0._1
             ItemCreator.SetComboBoxItems(rodzaje, ref ComboBoxRodzaj);
         }
 
+        //zmeinne wyjściowe
         public bool succes { get; set; } = false;
         
         public string name { get; set; }
@@ -53,8 +55,10 @@ namespace Faktformer_0._0._1
         public string filePath { get; set; }
         private string tempFilePath { get; set; }
 
+        //wczytuje dane z okna do danych wyjściowych i zamyka okno
         private void ButtonZapisz_Click(object sender, RoutedEventArgs e)
         {
+            //sprawdza czy wybrane pliki istnieją
             succes = true;
             if (CheckBoxZapiszWydruki.IsChecked == true)
             {
@@ -87,8 +91,14 @@ namespace Faktformer_0._0._1
                 wyrownajDoDaty = BoolNullToBool.Convert(CheckBoxDateMonth.IsChecked);
                 Close();
             }
+            //w przypadku gdy jeden z plików nie iintnieje, pokaż messagebox błąd
+            else
+            {
+                MessageBox.Show("Jedna lub więcej z podanych ścierzek nie istnieje", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        //zamyka okno
         private void ButtonAnuluj_Click(object sender, RoutedEventArgs e)
         {
             succes = false;
@@ -101,6 +111,7 @@ namespace Faktformer_0._0._1
             DatePickerDo.IsEnabled = BoolNullToBool.Convert(CheckBoxDate.IsChecked);
         }
 
+        //włącza i wyłącza interakcje z filepickerem zależnie od checkboxa
         private void CheckBoxZapiszWydruki_Click(object sender, RoutedEventArgs e)
         {
             if (CheckBoxZapiszWydruki.IsChecked == true)
@@ -143,26 +154,20 @@ namespace Faktformer_0._0._1
             FrontujSiatkeOdKategorii("Dokumenty");
         }
 
+        //frontuje siatkę zależnie od nazwy
         private void FrontujSiatkeOdKategorii(string gridName)
         {
             switch (gridName)
             {
                 case "Parametry":
-                    EnableDisabelGrid(ref Parametry, true);
-                    EnableDisabelGrid(ref Dokumenty, false);
+                    GridSettings.EnableDisabelGrid(ref Parametry, true);
+                    GridSettings.EnableDisabelGrid(ref Dokumenty, false);
                     break;
                 case "Dokumenty":
-                    EnableDisabelGrid(ref Dokumenty, true);
-                    EnableDisabelGrid(ref Parametry, false);
+                    GridSettings.EnableDisabelGrid(ref Dokumenty, true);
+                    GridSettings.EnableDisabelGrid(ref Parametry, false);
                     break;
             }
-        }
-
-        private void EnableDisabelGrid(ref Grid siatka, bool enabled)
-        {
-            siatka.Visibility = enabled ? Visibility.Visible : Visibility.Hidden;
-            siatka.IsEnabled = enabled;
-            Panel.SetZIndex(siatka, enabled ? 1 : -1);
         }
     }
 }

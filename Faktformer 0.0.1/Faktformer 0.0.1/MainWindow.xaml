@@ -122,7 +122,7 @@
                         <ColumnDefinition Width="281*"/>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-                        <StackPanel Name="TabPanel1" MinHeight="20" VerticalAlignment="Stretch" Loaded="TableMain_Loaded">
+                        <StackPanel Name="TabPanel1" MinHeight="20" VerticalAlignment="Stretch">
 
                             <!--Tu wrzucane są elemnty tabei w strukturze grid(kontrolka), dane podane z kodu(pobrane z bazy danych/systemu pilków)-->
 
@@ -228,7 +228,7 @@
                         <ColumnDefinition Width="281*"/>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-                        <StackPanel Name="TabPanel2" MinHeight="20" VerticalAlignment="Stretch" Loaded="TableMain_Loaded">
+                        <StackPanel Name="TabPanel2" MinHeight="20" VerticalAlignment="Stretch">
 
                             <!--Tu wrzucane są elemnty tabei w strukturze grid(kontrolka), dane podane z kodu(pobrane z bazy danych/systemu pilków)-->
 
@@ -333,7 +333,7 @@
                         <ColumnDefinition Width="281*"/>
                     </Grid.ColumnDefinitions>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-                        <StackPanel Name="TabPanel3" MinHeight="20" VerticalAlignment="Stretch" Loaded="TableMain_Loaded">
+                        <StackPanel Name="TabPanel3" MinHeight="20" VerticalAlignment="Stretch">
 
                             <!--Tu wrzucane są elemnty tabei w strukturze grid(kontrolka), dane podane z kodu(pobrane z bazy danych/systemu pilków)-->
 

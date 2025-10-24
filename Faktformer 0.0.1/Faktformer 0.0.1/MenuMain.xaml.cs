@@ -27,21 +27,21 @@ namespace Faktformer_0._0._1
             InitializeComponent();
         }
        
-        //Opcja menu kliknięta która ma otworzyć okno o id 0
+        //Opcja menu kliknięta która ma otworzyć okno harmonogram
         private void MenuItemHarmonogram_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).OpenWindow("Harmonogram");
             
         }
 
-        //Opcja menu kliknięta która ma otworzyć okno o id 2
+        //Opcja menu kliknięta która ma otworzyć okno BazaDanych
         private void MenuItemBazaDanych_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).OpenWindow("BazaDanych");
 
         }
 
-        //Opcja menu kliknięta która ma otworzyć okno o id 3
+        //Opcja menu kliknięta która ma otworzyć okno Email
         private void MenuItemEmail_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).OpenWindow("Email");
@@ -53,6 +53,7 @@ namespace Faktformer_0._0._1
             ((MainWindow)System.Windows.Application.Current.MainWindow).OpenWindow("ParametryPracy");
         }
 
+        //Otwiera Okno logowani i wylogowuje
         private void MenuItemWyloguj_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).OpenWindow("ProfilSelector");

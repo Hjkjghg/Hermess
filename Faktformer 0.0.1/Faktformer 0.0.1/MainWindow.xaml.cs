@@ -120,13 +120,6 @@ namespace Faktformer_0._0._1
             }
         }
 
-
-        //wprowadza wizualną zawartość tabeli po jej załadowaniu
-        private void TableMain_Loaded(object sender, RoutedEventArgs e)
-        {
-            //selectFromCorrectDBToTable();
-        }
-
         //jeśli checkbox główny został zaznaczony bądź odznaczony, adekwatnie zareagój resztą checkboxów
         private void CheckboxCheckedAll(object sender, RoutedEventArgs e)
         {
@@ -449,6 +442,7 @@ namespace Faktformer_0._0._1
         //pobiara dane do wyświetlenia w formuarzu logowania
         public bool PobierzDaneZ(out List <string> profile, out string podmiot, out List <string> uzytkownicy)
         {
+            //!!!tymczasowe
             profile = new List<string>();
             uzytkownicy = new List<string>();
             profile.Add("Domyślny");

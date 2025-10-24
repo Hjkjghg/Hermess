@@ -19,6 +19,7 @@ namespace Faktformer_0._0._1
     /// </summary>
     public partial class ParametryPracy1 : Window
     {
+        //konstruktor pobiera dane do wyświetlenia przez ComboBoxy
         public ParametryPracy1(List<string> przeliczajWedlug)
         {
             InitializeComponent();

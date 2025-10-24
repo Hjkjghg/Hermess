@@ -169,7 +169,6 @@ namespace Faktformer_0._0._1
                 selectedIndexOfTermin = ComboBoxTermin.SelectedIndex;
                 selectedIndexOfStatus = ComboBoxStatus.SelectedIndex;
                 selectedIndexOfKategoria = ComboBoxKategoria.SelectedIndex;
-                //KontData = new string[SelectedDataKON.Count, SelectedDataKON[0].Count];
 
                 //konwertuje listę na arraya wyjściowego
                 KontData.SetContentTo(TableSelectedDataKon.ReturnList());
